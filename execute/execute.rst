@@ -76,7 +76,7 @@ To open the Data Selector tool in MapInfo, select **Tools... -> Data Extractor**
 
    \newpage
 
-If there are any structural issues with the XML document, the tool will display a message with the error it has encountered, and not load any further. If any of the map layers that are listed in the configuration document are not present in the active ArcGIS document or MapInfo workspace, a warning will be shown (:numref:`figLaunchWarningArcGIS`). The layers that are missing will not be loaded into the form and so cannot be included in the search process.
+If there are any structural issues with the XML document, the tool will display a message with the error it has encountered, and not load any further.
 
 .. _figLaunchWarningArcGIS:
 
@@ -98,17 +98,6 @@ Provided that the XML document is otherwise correct, the form will display (:num
 	:align: center
 
 	The form displaying the available data layers (ArcGIS)
-
-
-.. note::
-	The MapInfo version of the form has an additional button after the `Search Reference` field (:numref:`figSearchRefButtonMapInfo`) to retrieve the Site Name.
-
-	.. _figSearchRefButtonMapInfo:
-
-	.. figure:: figures/SearchReferenceButtonMapInfo.png
-		:align: center
-
-		The additional search reference button (MapInfo)
 
 
 .. raw:: latex

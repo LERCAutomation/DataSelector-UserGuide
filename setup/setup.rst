@@ -190,7 +190,7 @@ DialogSize
 Symbology attributes for MapInfo
 ********************************
 
-MapInfoTables
+_`MapInfoTables`
 	This section defines the symbology sets available for applying to any MapInfo .tab outputs. It has the following entries:
 
 All symbology sets are found within the ``<MapInfoTables>`` node. For each symbology set, which can be selected and applied to an output MapInfo .tab file, a new child node must be created. The node name (e.g. 'SymbologySet1') is not important but must be unique. A simplified example of a symbology set is shown in :numref:`figXMLExampleMapInfo`. 
