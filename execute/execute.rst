@@ -29,15 +29,14 @@ Queries can be saved for future use, so once a query has been written and saved 
 
 
 
-The operation of the Data Searches tool is explained in this section. While the interface is similar between the ArcGIS and MapInfo implementations of the tool, there are some differences. These are pointed out where relevant throughout this document.
 
-As discussed in the :doc:`Setting up the tool <../setup/setup>` section, the Data Searches tool is operated from a GIS project file within which the data required to run the tool is already loaded. It also relies on an Access database with details about the searches, and a configuration document. Therefore, before running the tool, ensure the following conditions are met:
 
-- A GIS document has been created which contains both the search sites layer(s) and the data layers describing protected sites and species that will be queried, as required. 
-- An Access database exists that contains the relevant information about the searches, in the correct tables and formats.
-- The search sites layer(s) have a column that contains the unique reference for each search, and this reference has the correct format.
-- The XML configuration document has been set up correctly, both for general settings and for each individual layer that will be queried. It is named correctly.
-- The Data Searches tool has been installed and set up.
+The operation of the Data Selector tool is explained in this section. While the interface is similar between the ArcGIS and MapInfo implementations of the tool, there are some differences. These are pointed out where relevant throughout this document.
+
+As discussed in the :doc:`Setting up the tool <../setup/setup>` section, the Data Selector tool is operated from the GIS application. It relies on the SQL tables containing any data that may be selected and a configuration document for setting up the tool. Therefore, before running the tool, ensure the following conditions are met:
+
+- The XML configuration document has been set up correctly and is named correctly.
+- The Data Selector tool has been installed and set up.
 
 .. seealso::
 	Please refer to the :doc:`setup <../setup/setup>` section for further information about any of these requirements.
@@ -53,24 +52,24 @@ As discussed in the :doc:`Setting up the tool <../setup/setup>` section, the Dat
 Opening the form
 ================
 
-To open the Data Searches tool in ArcGIS, click on the **Data Searches tool** button (:numref:`figLaunchArcGIS`).
+To open the Data Selector tool in ArcGIS, click on the **Data Selector tool** button (:numref:`figLaunchArcGIS`).
 
 .. _figLaunchArcGIS:
 
-.. figure:: figures/LaunchSearchesToolArcGIS.png
+.. figure:: figures/LaunchSelectorToolArcGIS.png
 	:align: center
 
-	Launching the Data Searches tool (ArcGIS)
+	Launching the Data Selector tool (ArcGIS)
 
 
-To open the Data Searches tool in MapInfo, select **Tools... -> Data Extractor** in the `Tools` menu (:numref:`figLaunchMapInfo`).
+To open the Data Selector tool in MapInfo, select **Tools... -> Data Extractor** in the `Tools` menu (:numref:`figLaunchMapInfo`).
 
 .. _figLaunchMapInfo:
 
-.. figure:: figures/LaunchSearchesToolMapInfo.png
+.. figure:: figures/LaunchSelectorToolMapInfo.png
 	:align: center
 
-	Launching the Data Searches tool (MapInfo)
+	Launching the Data Selector tool (MapInfo)
 
 
 .. raw:: latex
@@ -254,7 +253,7 @@ Finally, select whether the log file should be cleared before the process runs b
 Click **OK** for the search process to start.
 
 
-While the Data Searches tool is running the search, the map interface will become inactive (in ArcGIS the screen will show 'Paused'). Once the process is finished the interface will reactivate.
+While the Data Selector tool is running the search, the map interface will become inactive (in ArcGIS the screen will show 'Paused'). Once the process is finished the interface will reactivate.
 
 When the search is finished, a message box will appear (:numref:`figFinishedArcGIS`). If you would like to rerun the search (for example, for different data layers, or for a different buffer size), choose to keep the form open and it will retain the information as it was entered for the last search.
 
