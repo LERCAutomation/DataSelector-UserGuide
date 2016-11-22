@@ -60,7 +60,7 @@ Benefits
 
 There are a number of clear benefits to using the Data Selector tool for carrying out data selections from Recorder6.
 
-1. The tool enables the user to report directly from the Recorder6 database using a simple user interface within the GIS application without even needing to start the Recorder6 application.
+1. The tool enables the user to query and extract data directly from the Recorder6 database using a simple user interface within the GIS application without even needing to start the Recorder6 application.
 #. Queries can be saved for future use which is particularly useful for increasing efficiency if a query is run on a regular basis.
 #. Queries can be created by more experienced users in the LERC, or commissioned to be developed by a 3rd party, to meet specific requirements. It is even possible to share queries between LERCs (if based on a common set of attributes).
 #. Query results can be plotted directly in GIS applications, as MapInfo (.tab) tables (MapInfo version only) and ESRI (.shp) shapefiles, for immediate visual and spatial analysis, as well as being output as spreadsheet (.csv) files and text (.txt) files.

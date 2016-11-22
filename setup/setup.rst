@@ -281,7 +281,7 @@ _`Spatial_Tables` table
 		(-7845061.1011, -15524202.1641) (8645061.1011, 4470074.53373)``
 
 	.. caution::
-		This table must be filled out correctly for each table that is available to the Data Selector tool.
+		This table must be filled out correctly for each SQL table that is available to the Data Selector tool.
 
 	.. note::
 		A number of stored procedures that are used by the tool for selecting the required records must also be present in the SQL Server database. To obtain copies of these procedures please contact `Hester <mailto:Hester@HesterLyonsConsulting.co.uk>`_ or `Andy <mailto:Andy@AndyFoyConsulting.co.uk>`_.

@@ -50,7 +50,7 @@ This Preface explains a little about the Data Selector tool, the community of pe
 
 :doc:`Running the tool <../execute/execute>` \ describes how to run the Data Selector tool.
 
-:doc:`Writing SQL <../sql/sql>` \ introduces how to write SQL queries to be used in the Data Selector tool.
+:doc:`Writing SQL <../sql/sql>` \ introduces how to write SQL queries to be used in the Data Selector tool. [Coming soon!]
 
 :doc:`FAQs <../faq/faq>` \ has a list of commonly asked questions and their answers.
 
