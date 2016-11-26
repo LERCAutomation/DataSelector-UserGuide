@@ -31,6 +31,8 @@ Queries can be saved for future use, so once a query has been written and saved 
 
 
 
+
+
 The operation of the Data Selector tool is explained in this section. While the interface is similar between the ArcGIS and MapInfo implementations of the tool, there are some differences. These are pointed out where relevant throughout this document.
 
 As discussed in the :doc:`Setting up the tool <../setup/setup>` section, the Data Selector tool is operated from the GIS application. It relies on the SQL tables containing any data that may be selected and a configuration document for setting up the tool. Therefore, before running the tool, ensure the following conditions are met:
@@ -83,21 +85,21 @@ If there are any structural issues with the XML document, the tool will display 
 .. figure:: figures/LaunchWarningArcGIS.png
 	:align: center
 
-	Warning message displayed for any data layers not loaded
+	Example warning message displayed for any XML structural issues
 
 
 .. raw:: latex
 
    \newpage
 
-Provided that the XML document is otherwise correct, the form will display (:numref:`figDisplayFormArcGIS`).
+Provided that the XML document is otherwise correct, the form will display (:numref:`figDisplayFormMapInfo`).
 
-.. _figDisplayformArcGIS:
+.. _figDisplayformMapInfo:
 
-.. figure:: figures/DisplayFormArcGIS.png
+.. figure:: figures/DisplayFormMapInfo.png
 	:align: center
 
-	The form displaying the available data layers (ArcGIS)
+	The form displaying the available SQL tables and options (MapInfo)
 
 
 .. raw:: latex
@@ -110,42 +112,68 @@ Provided that the XML document is otherwise correct, the form will display (:num
 Using the form
 ==============
 
-Enter the search reference in the **Search Reference** box. If the search reference exists in the linked Access database, the site name will be displayed in the Site Name box (:numref:`figSearchRefKnownArcGIS`).
+Select the required source table in the **SQL Tables** box (:numref:`figSelectSQLTableMapInfo`).
 
-.. _figSearchRefKnownArcGIS:
+.. _figSelectSQLTableMapInfo:
 
-.. figure:: figures/SearchReferenceKnownArcGIS.png
+.. figure:: figures/SelectSQLTableMapInfo.png
 	:align: center
 
-	Site name displays automatically if the search reference is found
+	Select the required source table in the SQL tables list
 
 
-If the search reference does not exist, but you are certain the search reference exists in the search layer(s), enter the site name manually (:numref:`figSearchRefUnknownArcGIS`).
+Select the output file format to contain the selected records (:numref:`figSelectOutputFormatMapInfo`).
 
-.. _figsearchRefUnknownArcGIS:
+.. _figSelectOutputFormatMapInfo:
 
-.. figure:: figures/SearchReferenceUnknownArcGIS.png
+.. figure:: figures/SelectOutputFormatMapInfo.png
 	:align: center
 
-	Site name can be filled in manually if the search reference is not found
+	Select the output file format
 
+Options available in MapInfo
+- **MapInfo (.tab) file**
+- **ESRI (.shp) file**
+- **Comma-separated (.csv) file**
+- **Tab-separated (.txt) file**
 
-.. note::
-	The MapInfo version of the form has an additional button **Find** after the `Search Reference` field (:numref:`figSearchRefButtonMapInfo`). This button must be clicked to check if the search reference exists in the linked Access database and display the site name in the `Site Name` box.
+Options available in ArcGIS
+- **Geodatabase**
+- **Shapefile**
+- **Text file (tab delimited)**
+- **CSV file**
 
 
 .. raw:: latex
 
    \newpage
 
-Now select the data layers you wish to include in the search in the 'Layers to Search' list (ArcGIS) or 'MapInfo Tables' list (MapInfo). Use the :kbd:`Ctrl` key to select individual layers, or the :kbd:`Shift` key to select a range of layers. Selected layers will appear highlighted, layers that will not be included remain unselected (:numref:`figSelectLayersArcGIS`).
+If you have selected 'MapInfo (.tab) file' as the output file format (only available in MapInfo) you can optionally also select one of the pre-defined symbology sets to apply to the output file (:numref:`figSelectSymbologySetMapInfo`). Symbology sets are specified in the configuration file
 
-.. _figSelectLayersArcGIS:
+.. _figSelectSymbologySetMapInfo:
 
-.. figure:: figures/SelectLayersArcGIS.png
+.. figure:: figures/SelectSymbologySetMapInfo.png
 	:align: center
 
-	Select the layers to include in the search
+	Select a symbology set to apply to the records (MapInfo only)
+
+
+
+If you have selected 'ESRI (.shp) file' (available in ArcGIS or MapInfo) or 'MapInfo (.tab) file' (available only in MapInfo) as the output file format you can optionally also select if the records should be spatially plotted or re-plotted (:numref:`figSelectSpatialPlottingMapInfo`).
+
+.. _figSelectSpatialPlottingMapInfo:
+
+.. figure:: figures/SelectSpatialPlottingMapInfo.png
+	:align: center
+
+	Select a symbology set to apply to the records (MapInfo only)
+
+
+
+
+
+
+
 
 
 Next, select the buffer size and units in the Buffer Size and Buffer Units boxes (:numref:`figBufferSettingsArcGIS`). The buffer size box accepts decimal points. A buffer size of zero (0) is acceptable, however in ArcGIS the tool will create a buffer polygon of 0.01 metres if a zero buffer size is specified, in order for the buffer layer to be symbolised correctly.
@@ -287,12 +315,14 @@ You can now repeat the search process using a different search radius with diffe
    \newpage
 
 .. index::
-	single: Search results
+	single: Output results
 
-Search results
+Output results
 ==============
 
-When the search is finished, any exported data tables, saved GIS layers, the buffer GIS layer, and the log file are all saved in the 'GISFolder' specified in the XML document. Any saved GIS layers resulting from the search are also added to the map interface (if requested).
+When the selection is finished the output GIS layer or text file will be saved with the name, and in the folder, specified by the user before the process started. If the output is in a GIS format native to the GIS application (.tab files for MapInfo or .shp files for ArcGIS)
+
+and the log file are all saved in the 'GISFolder' specified in the XML document. Any saved GIS layers resulting from the search are also added to the map interface (if requested).
 
 .. note::
 	Only results for those layers for which features were found within the search radius are saved and added to the map.

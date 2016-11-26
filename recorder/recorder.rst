@@ -37,7 +37,7 @@ If your Recorder6 database is running on a more recent version of SQL Server (i.
 
 In order to 'spatialize' the master table additional steps in the SQL script are run to calculate the geometry of all records based on their grid reference. The geometry can be calculated as points and/or polygons based on the requirements of the LERC and how the data will be used. Once spatialized, records from the master table can be directly plotted and viewed as points or polygons in GIS.  In addition, queries can be executed in SQL Server using the spatial location of the records in much the same way that spatial queries can be performed in GIS. This reduces the overheads in GIS and means that the number of records exported from SQL Server into GIS can be much reduced.
 
-..Note::
+.. Note::
 	If your Recorder6 database is running on an older version of SQL Server (i.e. SQL Server 2005 or earlier) then it does not support 'Geometry' and 'Geography' spatial data type. But don't worry, all is not lost! Although the master table cannot be 'spatialized', the records can optionally be plotted as points and/or polygons by the Data Selector tool in GIS if the selected output type is a .tab or .shp file (depending on the host GIS application).
 
 
