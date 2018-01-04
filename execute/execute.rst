@@ -165,7 +165,16 @@ Specify the columns and SQL clauses that you wish to use to query the selected t
 
 this is a test
 
+
 .. _figExample2:
+
+.. figure:: figures/ExampleQuery2.png
+	:align: center
+
+	Example of an example
+
+
+.. _figExample4:
 
 ..figure:: figures/ExampleQuery2.png
 	:align: center
