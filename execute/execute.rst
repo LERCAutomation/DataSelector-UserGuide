@@ -7,8 +7,6 @@ Running the tool
 
 Instructions
 ------------
-
-- Slight differences for MI / ArcGIS
 - Specifying SQL clauses
 - Selecting output format
 - Choosing output destination
@@ -64,7 +62,7 @@ To open the Data Selector tool in ArcGIS, click on the **Data Selector tool** bu
 	Launching the Data Selector tool (ArcGIS)
 
 
-To open the Data Selector tool in MapInfo, select **Tools... -> Data Extractor** in the `Tools` menu (:numref:`figLaunchMapInfo`).
+To open the Data Selector tool in MapInfo, select **Tools... -> Data Selector** in the `Tools` menu (:numref:`figLaunchMapInfo`).
 
 .. _figLaunchMapInfo:
 
@@ -131,17 +129,17 @@ Select the output file format to contain the selected records (:numref:`figSelec
 
 	Select the output file format
 
-Options available in MapInfo
-- **MapInfo (.tab) file**
-- **ESRI (.shp) file**
-- **Comma-separated (.csv) file**
-- **Tab-separated (.txt) file**
+The following options are available in MapInfo:
+* **MapInfo (.tab) file**
+* **ESRI (.shp) file**
+* **Comma-separated (.csv) file**
+* **Tab-separated (.txt) file**
 
-Options available in ArcGIS
-- **Geodatabase**
-- **Shapefile**
-- **Text file (tab delimited)**
-- **CSV file**
+The following options are available in ArcGIS:
+* **Geodatabase**
+* **Shapefile**
+* **Text file (tab delimited)**
+* **CSV file**
 
 
 .. raw:: latex
