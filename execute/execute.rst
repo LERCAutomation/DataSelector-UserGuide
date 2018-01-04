@@ -7,23 +7,6 @@ Running the tool
 
 Instructions
 ------------
-- Note: overwrite of outputs
-
-
-Worked example(s)
------------------
-
-
-Loading & saving queries
-------------------------
-
-Queries can be saved for future use, so once a query has been written and saved it can be loaded and re-run by any user at any time and it will output results from the most up-to-date copy of the database.
-
-
-
-
-
-
 
 The operation of the Data Selector tool is explained in this section. While the interface is similar between the ArcGIS and MapInfo implementations of the tool, there are some differences. These are pointed out where relevant throughout this document.
 
@@ -163,7 +146,15 @@ If you have selected 'ESRI (.shp) file' (available in ArcGIS or MapInfo) or 'Map
 	Select a symbology set to apply to the records (MapInfo only)
 
 
-Now, specify the columns and SQL clauses that you wish to use to query the selected table. All syntax should adhere to SQL Server SQL syntax, and it is important that the correct part of the query is entered in the correct text box. A number of examples are shown in .... Note that if a Group By clause is included for a query that includes a spatial element, the geometry must be grouped too (see :numref:`figExample2` for an example using an aggregate function).
+Finally, select whether the log file should be overwritten, and whether the spatial columns should be deleted after use (MapInfo only). Now the form is set up to enter and run your query.
+
+Entering queries
+================
+
+Specify the columns and SQL clauses that you wish to use to query the selected table. All syntax should adhere to SQL Server SQL syntax, and it is important that the correct part of the query is entered in the correct text box. A number of examples are shown in :numref:`figExample1` (a simple query including geometry), :numref:`figExample2` (a spatial query using grouping) and :numref:`figExample3` (a non-spatial, or tabular, query).
+
+..Note::
+	If a Group By clause is included for a query that includes a spatial element, the geometry must be grouped too using SQL specific syntax (see :numref:`figExample2` for an example using an aggregate function).
 
 .. _figExample1:
 
@@ -191,14 +182,8 @@ If no spatial element is selected in the query, the output will be tabular. An e
 	Example of a summary query with tabular output (ArcGIS)
 
 
-Queries can be saved or loaded by using the ``Save`` and ``Load`` buttons (:numref:`figSaveAndLoad`). They are saved as a simple text file with minimal formatting.
-
-.. _figSaveAndLoad:
-
-..figure:: figures/SaveAndLoadQueriesMapInfo.png
-	:align: center
-
-	Save and load queries (MapInfo)
+Running the query
+=================
 
 Once the correct query has been entered and the output format selected, and the plotting and symbology defined (MapInfo only), check whether the log file should be overwritten using the ``Clear Log File`` check box. Then, click `OK`. You will be prompted for an output file (:numref:`figDefineOutput`). Enter a name for your output and click `Save`. If an existing file is selected, the tool will prompt you for permission to overwrite this, or to choose a different name. Once the output name has been selected the tool will begin the process.
 
@@ -251,5 +236,17 @@ Once the process has finished, a messagebox will ask you whether you wish to clo
 	The log file is shown when the process finishes
 
 
+Loading & saving queries
+------------------------
 
+Queries can be saved for future use, so once a query has been written and saved it can be loaded and re-run by any user at any time and it will output results from the most up-to-date copy of the database.
+
+Queries can be saved or loaded by using the ``Save`` and ``Load`` buttons (:numref:`figSaveAndLoad`). They are saved as a simple text file with minimal formatting.
+
+.. _figSaveAndLoad:
+
+..figure:: figures/SaveAndLoadQueriesMapInfo.png
+	:align: center
+
+	Save and load queries (MapInfo)
 
