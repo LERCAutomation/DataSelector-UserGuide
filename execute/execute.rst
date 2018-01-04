@@ -171,8 +171,7 @@ Specify the columns and SQL clauses that you wish to use to query the selected t
 
 	Example of a query using spatial grouping (ArcGIS)
 
-
-If no spatial element is selected in the query, the output will be tabular. An example of such a query is shown in :numref:`figExample3`, where a simmple report is generated of the number of records for each taxon group.
+If no spatial element is selected in the query, the output will be tabular. An example of such a query is shown in :numref:`figExample3`, where a simple report is generated of the number of records for each taxon group.
 
 .. _figExample3:
 
