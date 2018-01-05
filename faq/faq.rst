@@ -28,11 +28,7 @@ Operating the tool
 
 **One of the SQL Server tables I want to use isn't showing in the form. How do I get it to show up?**
 
-	This issue can arise in several ways:
-
-	- The layer isn't loaded in your GIS document or workspace. In this case, a :ref:`message will pop up <figlaunchwarningArcGIS>` before the form is displayed informing you the layer isn't loaded. Add the layer to GIS and restart the tool and the problem should be resolved.
-	- The layer isn't listed in the XML configuration document. Please refer to the :doc:`setup <../setup/setup>` section and add it as a map layer.
-	- The map layer is listed in the configuration document, but the 'LayerName' is spelled incorrectly. Note that the name must follow the exact format of the name of the layer in the current GIS document or active workspace (in ArcGIS the name is also case sensitive).
+	This issue will arise if the layer isn't being selected by the SQL statement in the XML configuration document. Please refer to the :doc:`setup <../setup/setup>` section and adjust the TableListSQL statement, and the Include and Exclude wildcards as appropriate.
 
 **I got an error message about a SQL error**
 
