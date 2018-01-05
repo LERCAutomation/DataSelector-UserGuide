@@ -175,7 +175,7 @@ If no spatial element is selected in the query, the output will be tabular. An e
 
 .. _figExample3:
 
-..figure:: figures/ExampleQuery3.png
+.. figure:: figures/ExampleQuery3.png
 	:align: center
 
 	Example of a summary query with tabular output (ArcGIS)
