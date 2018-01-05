@@ -212,26 +212,28 @@ An example of spatial and tabular outputs in ArcGIS is shown in :numref:`figSpat
 
 .. _figTabularOutput:
 
-..figure:: figures/TabularOutput.png
+.. figure:: figures/TabularOutput.png
 	:align: center
 
 	Example output from a non-spatial query (ArcGIS)
+
 
 Once the process has finished, a messagebox will ask you whether you wish to close the form (:numref:`figCloseForm`). After you have made your choice the log file is shown (:numref:`figLogFile`) so you can check the process has completed correctly, and the results will be added to the screen as discussed above. If spatial output was selected the extent of the map will be set to that of the output.
 
 .. _figCloseForm:
 
-..figure:: figures/FinishedArcGIS.png
+.. figure:: figures/FinishedArcGIS.png
 	:align: center
 
 	User is asked whether the form should be closed after the process finishes
 
 .. _figLogFile:
 
-..figure:: figures/LogFile.png
+.. figure:: figures/LogFile.png
 	:align: center
 
 	The log file is shown when the process finishes
+
 
 
 Loading & saving queries
@@ -243,8 +245,9 @@ Queries can be saved or loaded by using the ``Save`` and ``Load`` buttons (:numr
 
 .. _figSaveAndLoad:
 
-..figure:: figures/SaveAndLoadQueriesMapInfo.png
+.. figure:: figures/SaveAndLoadQueriesMapInfo.png
 	:align: center
 
 	Save and load queries (MapInfo)
+
 
