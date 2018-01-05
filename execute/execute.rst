@@ -188,7 +188,7 @@ Once the correct query has been entered and the output format selected, and the 
 
 .. _figDefineOutput:
 
-..figure:: figures/DefineOutput.png
+.. figure:: figures/DefineOutput.png
 	:align: center
 
 	Enter the name for your output file.
@@ -205,11 +205,10 @@ An example of spatial and tabular outputs in ArcGIS is shown in :numref:`figSpat
 
 .. _figSpatialOutput:
 
-..figure:: figures/SpatialOutput.png
+.. figure:: figures/SpatialOutput.png
 	:align: center
 
 	Example output from a spatial query (ArcGIS; Zoomed in to maintain confidentiality)
-
 
 .. _figTabularOutput:
 
