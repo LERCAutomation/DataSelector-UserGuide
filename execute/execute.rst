@@ -218,7 +218,7 @@ An example of spatial and tabular outputs in ArcGIS is shown in :numref:`figSpat
 	Example output from a non-spatial query (ArcGIS)
 
 
-Once the process has finished, a messagebox will ask you whether you wish to close the form (:numref:`figCloseForm`). After you have made your choice the log file is shown (:numref:`figLogFile`) so you can check the process has completed correctly, and the results will be added to the screen as discussed above. If spatial output was selected the extent of the map will be set to that of the output.
+Once the process has finished, a messagebox will ask you whether you wish to close the form (:numref:`figCloseForm`). After you have made your choice the log file is shown (:numref:`figLogFile`) so you can check the process has completed correctly, and the results will be added to the screen as discussed above. Note that the log file entries are different between ArcGIS and MapInfo versions.
 
 .. _figCloseForm:
 
@@ -229,10 +229,10 @@ Once the process has finished, a messagebox will ask you whether you wish to clo
 
 .. _figLogFile:
 
-.. figure:: figures/LogFile.png
+.. figure:: figures/LogFileArcGIS.png
 	:align: center
 
-	The log file is shown when the process finishes
+	The log file is shown when the process finishes (ArcGIS)
 
 
 
