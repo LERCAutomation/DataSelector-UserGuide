@@ -151,10 +151,13 @@ Finally, select whether the log file should be overwritten, and whether the spat
 Entering queries
 ================
 
-Specify the columns and SQL clauses that you wish to use to query the selected table. All syntax should adhere to SQL Server SQL syntax, and it is important that the correct part of the query is entered in the correct text box. A number of examples are shown in :numref:`figExample1` (a simple query including geometry), :numref:`figExample2` (a spatial query using grouping) and :numref:`figExample3` (a non-spatial, or tabular, query).
+Specify the columns and SQL clauses that you wish to use to query the selected table. All syntax should adhere to SQL Server SQL syntax, and it is important that the correct part of the query is entered in the correct text box. Bear in mind when writing your query that the tool is designed to run a SELECT query only, and that it will not execute an action query. Simply enter the columns you wish to select in the ``Columns`` box, including any changes in name (e.g. ``CommonName as Name``), your selection clause in the ``Where`` box, and your Group By and Order By clauses in their relevant boxes as appropriate. A number of examples are shown in :numref:`figExample1` (a simple query including geometry), :numref:`figExample2` (a spatial query using grouping) and :numref:`figExample3` (a non-spatial, or tabular, query).
 
 .. note::
 	If a Group By clause is included for a query that includes a spatial element, the geometry must be grouped too using SQL specific syntax (see :numref:`figExample2` for an example using an aggregate function).
+
+.. note::
+	It is not necessary to include key words such as ``SELECT``, ``WHERE``, ``GROUP BY`` and ``ORDER BY``. Doing so will make the tool fail.
 
 .. _figExample1:
 
