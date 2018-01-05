@@ -245,7 +245,7 @@ Queries can be saved or loaded by using the ``Save`` and ``Load`` buttons (:numr
 
 .. _figSaveAndLoad:
 
-.. figure:: figures/SaveAndLoadQueriesMapInfo.png
+.. figure:: figures/SaveLoadQueriesMapInfo.png
 	:align: center
 
 	Save and load queries (MapInfo)
