@@ -117,7 +117,7 @@ When the process finishes, the output is added to the GIS interface, either as a
 Output files
 ------------
 
-When the tool is used in MapInfo, output GIS layers can be generated in MapInfo (.tab) format (:numref:`figGISOutput`) or converted into an ArcGIS (.shp) shapefiles. When used in ArcGIS the tool will output GIS layers as ArcGIS (.shp) shapefiles or as file- or personal-geodatabase feature classes.
+When the tool is used in MapInfo, output GIS layers can be generated in MapInfo (.tab) format or converted into an ArcGIS (.shp) shapefiles. When used in ArcGIS the tool will output GIS layers as ArcGIS (.shp) shapefiles or as file- or personal-geodatabase feature classes. An example of the output the tool can generate is showin in :numref:`figGISOutput`.
 
 
 .. _figGISOutput:
