@@ -1,256 +1,286 @@
-.. index::
-	single: Running the tool
-
 ****************
 Running the tool
 ****************
 
-Instructions
-------------
-
-The operation of the Data Selector tool is explained in this section. While the interface is similar between the ArcGIS and MapInfo implementations of the tool, there are some differences. These are pointed out where relevant throughout this document.
-
-As discussed in the :doc:`Setting up the tool <../setup/setup>` section, the Data Selector tool is operated from the GIS application. It relies on the SQL tables containing any data that may be selected and a configuration document for setting up the tool. Therefore, before running the tool, ensure the following conditions are met:
-
-- The XML configuration document has been set up correctly and is named correctly.
-- The Data Selector tool has been installed and set up.
-
-.. seealso::
-	Please refer to the :doc:`setup <../setup/setup>` section for further information about any of these requirements.
-
-
-.. raw:: latex
-
-   \newpage
+Use :doc:`../quickstart/quickstart` for a routine run. This chapter explains
+the controls in DataSelector for MapInfo version |release| in more detail.
+An administrator must first complete :doc:`../setup/setup`.
 
 .. index::
-	single: Opening the form
+   pair: Profiles; choosing
+   pair: Form; opening
+   single: SQL Tables
 
-Opening the form
-================
+Opening the form and choosing a table
+=====================================
 
-To open the Data Selector tool in ArcGIS, click on the **Data Selector tool** button (:numref:`figLaunchArcGIS`).
+Launch the tool using the menu or ribbon button described under
+:ref:`administrator_checklist` and shown in :numref:`figSelectorLaunch`.
+Choose the appropriate XML profile if prompted. A single available profile
+is selected automatically. The tool connects to SQL Server and lists the
+tables returned by :ref:`setting_TableListSQL`.
 
-.. _figLaunchArcGIS:
+Select one entry in **SQL Tables**. Double-click an entry to insert its
+column names into **Columns**; if text is already present, confirm before
+replacing it. The other SQL fields are not reset by this action.
 
-.. figure:: figures/LaunchSelectorToolArcGIS.png
-	:align: center
-
-	Launching the Data Selector tool (ArcGIS)
-
-
-To open the Data Selector tool in MapInfo, select **Tools... -> Data Selector** in the `Tools` menu (:numref:`figLaunchMapInfo`).
-
-.. _figLaunchMapInfo:
-
-.. figure:: figures/LaunchSelectorToolMapInfo.png
-	:align: center
-
-	Launching the Data Selector tool (MapInfo)
-
-
-.. raw:: latex
-
-   \newpage
-
-If there are any structural issues with the XML document, the tool will display a message with the error it has encountered, and not load any further.
-
-.. _figLaunchWarningArcGIS:
-
-.. figure:: figures/LaunchWarningArcGIS.png
-	:align: center
-
-	Example warning message displayed for any XML structural issues
-
-
-.. raw:: latex
-
-   \newpage
-
-Provided that the XML document is otherwise correct, the form will display (:numref:`figDisplayFormMapInfo`).
-
-.. _figDisplayformMapInfo:
+.. _figSelectorForm:
 
 .. figure:: figures/DisplayFormMapInfo.png
-	:align: center
+   :align: center
 
-	The form displaying the available SQL tables and options (MapInfo)
-
-
-.. raw:: latex
-
-   \newpage
+   DataSelector form: query fields, source table and output options
 
 .. index::
-	single: Using the form
-
-Using the form
-==============
-
-Select the required source table in the **SQL Tables** box (:numref:`figSelectSQLTableMapInfo`).
-
-.. _figSelectSQLTableMapInfo:
-
-.. figure:: figures/SelectSQLTableMapInfo.png
-	:align: center
-
-	Select the required source table in the SQL tables list
-
-
-Select the output file format to contain the selected records (:numref:`figSelectOutputFormatMapInfo`).
-
-.. _figSelectOutputFormatMapInfo:
-
-.. figure:: figures/SelectOutputFormatMapInfo.png
-	:align: center
-
-	Select the output file format
-
-The following options are available in MapInfo:
-
-* **MapInfo (.tab) file**
-* **ESRI (.shp) file**
-* **Comma-separated (.csv) file**
-* **Tab-separated (.txt) file**
-
-The following options are available in ArcGIS:
-
-* **Geodatabase**
-* **Shapefile**
-* **Text file (tab delimited)**
-* **CSV file**
-
-
-.. raw:: latex
-
-   \newpage
-
-If you have selected 'MapInfo (.tab) file' as the output file format (only available in MapInfo) you can optionally also select one of the pre-defined symbology sets to apply to the output file (:numref:`figSelectSymbologySetMapInfo`). Symbology sets are specified in the configuration file
-
-.. _figSelectSymbologySetMapInfo:
-
-.. figure:: figures/SelectSymbologySetMapInfo.png
-	:align: center
-
-	Select a symbology set to apply to the records (MapInfo only)
-
-
-
-If you have selected 'ESRI (.shp) file' (available in ArcGIS or MapInfo) or 'MapInfo (.tab) file' (available only in MapInfo) as the output file format you can optionally also select if the records should be spatially plotted or re-plotted (:numref:`figSelectSpatialPlottingMapInfo`). In ArcGIS, the records are automatically plotted if a geometry field is included.
-
-.. _figSelectSpatialPlottingMapInfo:
-
-.. figure:: figures/SelectSpatialPlottingMapInfo.png
-	:align: center
-
-	Select a symbology set to apply to the records (MapInfo only)
-
-
-Finally, select whether the log file should be overwritten, and whether the spatial columns should be deleted after use (MapInfo only). Now the form is set up to enter and run your query.
-
-Entering queries
-================
-
-Specify the columns and SQL clauses that you wish to use to query the selected table. All syntax should adhere to SQL Server SQL syntax, and it is important that the correct part of the query is entered in the correct text box. Bear in mind when writing your query that the tool is designed to run a SELECT query only, and that it will not execute an action query. Simply enter the columns you wish to select in the ``Columns`` box, including any changes in name (e.g. ``CommonName as Name``), your selection clause in the ``Where`` box, and your Group By and Order By clauses in their relevant boxes as appropriate. A number of examples are shown in :numref:`figExample1` (a simple query including geometry), :numref:`figExample2` (a spatial query using grouping) and :numref:`figExample3` (a non-spatial, or tabular, query).
-
-.. note::
-	If a Group By clause is included for a query that includes a spatial element, the geometry must be grouped too using SQL specific syntax (see :numref:`figExample2` for an example using an aggregate function).
-
-.. note::
-	It is not necessary to include key words such as ``SELECT``, ``WHERE``, ``GROUP BY`` and ``ORDER BY``. Doing so will make the tool fail.
-
-.. _figExample1:
-
-.. figure:: figures/ExampleQuery1.png
-	:align: center
-
-	Example of a simple query using geometry (ArcGIS)
-
-
-.. _figExample2:
-
-.. figure:: figures/ExampleQuery2.png
-	:align: center
-
-	Example of a query using spatial grouping (ArcGIS)
-
-If no spatial element is selected in the query, the output will be tabular. An example of such a query is shown in :numref:`figExample3`, where a simple report is generated of the number of records for each taxon group.
-
-.. _figExample3:
-
-.. figure:: figures/ExampleQuery3.png
-	:align: center
-
-	Example of a summary query with tabular output (ArcGIS)
-
-
-Running the query
-=================
-
-Once the correct query has been entered and the output format selected, and the plotting and symbology defined (MapInfo only), check whether the log file should be overwritten using the ``Clear Log File`` check box. Then, click `OK`. You will be prompted for an output file (:numref:`figDefineOutput`). Enter a name for your output and click `Save`. If an existing file is selected, the tool will prompt you for permission to overwrite this, or to choose a different name. Once the output name has been selected the tool will begin the process.
-
-.. _figDefineOutput:
-
-.. figure:: figures/DefineOutput.png
-	:align: center
-
-	Enter the name for your output file.
-
-
-Depending on which version of the tool you are using, and whether you are generating a spatial or a tabular output, the output will be created and shown as follows:
-
-* If you are using **MapInfo** and are creating a **spatial** output layer, it will be added to the view and shown.
-* If you are using **ArcGIS** and are creating a **spatial** output layer, it will be split into point and polygon layers as required and added to the view in a grouped layer.
-* If you are using **MapInfo** and are creating **tabular** output in **CSV or TXT** format, it will not be added to the view.
-* If you are using **ArcGIS** and are creating **tabular** output, or **MapInfo** and creating **tabular** output in **.tab** format, it will be added to the view and shown.
-
-An example of spatial and tabular outputs in ArcGIS is shown in :numref:`figSpatialOutput` and :numref:`figTabularOutput`. 
-
-.. _figSpatialOutput:
-
-.. figure:: figures/SpatialOutput.png
-	:align: center
-
-	Example output from a spatial query (ArcGIS; Zoomed in to maintain confidentiality)
-
-.. _figTabularOutput:
-
-.. figure:: figures/TabularOutput.png
-	:align: center
-
-	Example output from a non-spatial query (ArcGIS)
-
-
-Once the process has finished, a messagebox will ask you whether you wish to close the form (:numref:`figCloseForm`). After you have made your choice the log file is shown (:numref:`figLogFile`) so you can check the process has completed correctly, and the results will be added to the screen as discussed above. Note that the log file entries are different between ArcGIS and MapInfo versions.
-
-.. _figCloseForm:
-
-.. figure:: figures/FinishedArcGIS.png
-	:align: center
-
-	User is asked whether the form should be closed after the process finishes
-
-.. _figLogFile:
-
-.. figure:: figures/LogFileArcGIS.png
-	:align: center
-
-	The log file is shown when the process finishes (ArcGIS)
-
-
-
-Loading & saving queries
-------------------------
-
-Queries can be saved for future use, so once a query has been written and saved it can be loaded and re-run by any user at any time and it will output results from the most up-to-date copy of the database.
-
-Queries can be saved or loaded by using the ``Save`` and ``Load`` buttons (:numref:`figSaveAndLoad`). They are saved as a simple text file with minimal formatting.
-
-.. _figSaveAndLoad:
-
-.. figure:: figures/SaveLoadQueriesMapInfo.png
-	:align: center
-
-	Save and load queries (MapInfo)
-
-
+   pair: SQL; entering expressions
+   pair: Queries; grouped results
+
+Entering the query
+==================
+
+Enter the required attributes or expressions in **Columns**. Use ``*`` for
+all columns, or list them explicitly to keep the output focused and avoid
+unnecessary width. **Where**, **Group By** and **Order By** are optional.
+Enter expressions without their SQL keywords. See :doc:`../sql/sql` for
+filtering, aliases and summary examples.
+
+If using existing SQL geometry, include its source column as required by
+the database setup. If plotting coordinates, include the X, Y and grid-size
+attributes under the names selected in the plotting controls. Include any
+attributes referenced by the selected symbology set.
+
+.. index::
+   pair: Outputs; format reference
+   pair: TAB; map display
+   pair: SHP; translation
+   pair: CSV; export
+   pair: TXT; tab-separated export
+   single: WindowsLatin1
+
+.. _output_formats:
+
+Output format reference
+========================
+
+Choose **Output File Format** before running the query. All formats first
+download through a local TAB table and are subject to the same selection
+checks. Only TAB output remains open in MapInfo after a normal run.
+
+.. list-table::
+   :header-rows: 1
+   :widths: 16 32 26 26
+
+   * - Format
+     - Retained result
+     - Geometry and styles
+     - Display
+   * - TAB
+     - TAB and its companion files.
+     - Existing or newly plotted geometry; optional configured symbology.
+     - Mappable results go to a map; non-spatial results open in a browser.
+   * - SHP
+     - Shapefile components produced by Universal Translator.
+     - Existing or newly plotted geometry. The configured TAB symbology
+       routine is not applied.
+     - Not automatically opened or mapped. The intermediate TAB is removed.
+   * - CSV
+     - Comma-separated attributes with column titles.
+     - No plotted geometry or configured styling.
+     - Not automatically opened. The intermediate TAB is removed.
+   * - TXT
+     - Tab-separated attributes with column titles, exported using
+       WindowsLatin1.
+     - No plotted geometry or configured styling.
+     - Not automatically opened. The intermediate TAB is removed.
+
+SHP requires MapInfo's Universal Translator installation under ``UT``;
+the code invokes ``Fme.exe`` for MapInfo version 12 or later and ``Imut.exe``
+for earlier versions. Test translation in the intended MapInfo installation,
+particularly for mixed point/region results. Keep all translator-produced
+components and check their attributes and feature counts.
+
+.. index::
+   pair: Symbology; choosing a set
+   single: Symbology Set
+   pair: Plotting; coordinates
+   pair: Plotting; points and regions
+   single: Max Points Precision
+   single: Delete columns after plotting
+
+.. _plotting:
+
+Plotting and symbology
+======================
+
+For TAB output, choose **Symbology Set**, or **<None>** to leave the
+configured styling unapplied. Rules run after plotting and require any
+attributes used by their clauses. Only Point and Region style updates are
+implemented. See :ref:`setting_MapInfoTables` for rule definitions.
+
+For TAB or SHP output, the profile can expose **Plot data spatially?**.
+When checked, choose **X Col**, **Y Col**, **Size Col** and **Max Points
+Precision**. The tool plots all selected rows, replacing existing geometry
+if present. When it is unchecked, existing recognised geometry can be
+retained; no new objects are created from coordinates.
+
+The tool uses the size value to align coordinates to a grid: X and Y are
+reduced to the grid origin using ``Int(coordinate / size) * size``. A size
+less than or equal to **Max Points Precision** produces a point at that
+origin. A larger size produces a square extending one size unit in each
+positive direction. Points are placed at the grid origin, not the square's
+centre. For example, size 100 and threshold 100 produce a point; size 1,000
+and threshold 100 produce a 1 km square when coordinates are in metres.
+
+Use valid numeric coordinates and positive, non-zero sizes. The current
+plotting routine divides by the size without validating each row. The
+coordinate system must match the attributes; :ref:`setting_CoordinateSystem`
+is used only when creating map geometry on a non-spatial table. Existing
+mappable tables retain their coordinate system during re-plotting.
+
+**Delete columns after plotting?** removes the chosen coordinate and size
+attributes in the TAB branch, after symbology. It does not remove them from
+SHP exports in the current code. Leave this unchecked unless a TAB result
+without those attributes is intended. If you turn plotting off for a later
+run, uncheck deletion first: the current code does not fully gate deletion
+on whether plotting ran.
+
+Missing required result columns cancel plotting and are reported in the log.
+Changing the source table or loading a query does not guarantee the plotting
+choices still match the result; check them before each run.
+
+.. index::
+   pair: Queries; running
+   pair: Outputs; filenames
+   pair: Outputs; overwriting
+   pair: Form; keeping open
+
+Running and checking the result
+===============================
+
+1. Check the source, all four SQL fields, format, plotting and symbology.
+#. Choose whether to clear the previous log, then click **Ok**.
+#. In the Save dialog, choose an existing output folder and a filename
+   beginning with an ASCII letter A-Z or a-z, with the chosen extension.
+   Use short names with letters, digits and underscores. The code replaces
+   spaces and removes hyphens for its internal MapInfo alias.
+#. Wait for processing, then answer **Do you wish to close the form?**.
+   Choose **No** to retain the form for another selection, or **Yes** to
+   close it.
+#. Review the log opened in Notepad and inspect the actual output files.
+
+.. caution::
+
+   Reusing a destination can replace earlier output, including its working
+   TAB files. CSV/TXT exports explicitly overwrite. Use a fresh basename
+   if earlier results must be retained, including a basename that is not
+   already used by an unrelated TAB table in the same folder.
+
+For mappable TAB results, the tool adds a layer to the front window if it
+is a map; otherwise it opens a new map. Non-spatial TAB results open in a
+browser. Other formats are not added to the view.
+
+The completion prompt and ``Process completed!`` message mean control has
+returned from selection. They are not proof that an export succeeded:
+zero-row selections, limit cancellations and some errors still reach them.
+Read preceding messages, confirm the expected files exist, and compare
+counts, attributes and geometry with the request.
+
+Cancelling the output Save dialog cancels that selection and returns to
+the form. The log may already have been cleared. The form's **Cancel**
+button closes the form; it is not a documented stop-and-recover facility
+for an active database query or translation.
+
+.. index::
+   pair: Limits; selected records
+   pair: Limits; row width
+   pair: Limits; total data size
+   single: 4096 bytes
+
+.. _selection_limits:
+
+Selection limits
+----------------
+
+After the SQL procedure creates a subset, the tool cancels zero-row
+results and results exceeding :ref:`setting_RecMax`. It then links an empty
+table to estimate row width. Widths over 4,096 bytes are cancelled. A
+further size estimate is intended to reject attribute data over 2 GB.
+
+These are code checks, rather than a guarantee that a result below those
+values will succeed. The size calculation estimates attribute data, rather
+than the complete disk usage of all output components. Output-format,
+driver, geometry and available-space constraints also apply. Reduce the
+selected columns and divide very large queries into smaller selections.
+
+.. index::
+   pair: Queries; saving and loading
+   pair: QSF files; contents
+   single: Save
+   single: Load
+
+.. _saved_queries:
+
+Saving and loading queries
+===========================
+
+Use **Save** to write the current four SQL fields to a ``.qsf`` file. Use
+**Load** to restore them. The query folder must exist, and saving over a
+QSF replaces it. A previously loaded query's name is offered when saving.
+
+A QSF stores ``Fields``, ``Where``, ``Group By`` and ``Order By`` in a
+simple text format. It does not store the profile, SQL table, format,
+destination, plotting controls, symbology or log-clearing choice. Check
+those after loading, especially when sharing queries between users or
+databases. A QSF stores expressions, not a snapshot of the data; rerunning
+it uses the prepared table as it exists at that time.
+
+.. index::
+   pair: Logs; review
+   pair: Logs; clearing
+   pair: Diagnostics; shapefile translation
+   single: DataSelector log
+   single: Universal Translator
+
+.. _run_logs:
+
+Run log and diagnostics
+=======================
+
+The tool appends timestamped messages directly to
+``LogFilePath\DataSelector_<user>.log`` during processing. The Windows
+username is used with spaces and full stops replaced by underscores.
+The log is opened in Notepad after the close-form prompt is answered.
+An already open Notepad window may need to reload the file to show changes.
+
+**Clear log file?** deletes the previous file before the new run starts
+and before the output destination is chosen. Leave it unchecked to append.
+Profiles using the same log folder share the same user's log filename.
+Keep a copy before a run if earlier diagnostics must be retained.
+
+Check the selected table, format, output path, row count, estimated row
+width/size, geometry messages, exports and any errors. This shortened
+excerpt is illustrative; counts and intermediate messages depend on the data:
+
+.. code-block:: text
+
+   19/10/2026 10:00:00 : Process started!
+   19/10/2026 10:00:00 : Table Name = 'Example_Spp'
+   19/10/2026 10:00:00 : Output Format = '.tab'
+   19/10/2026 10:00:01 : Output File = 'D:\DataSelector\Extracts\Birds_2020.tab'
+   19/10/2026 10:00:02 : 12 records selected.
+   19/10/2026 10:00:03 : Plotting local table ...
+   19/10/2026 10:00:03 : Plotting 12 rows as points or polygons.
+   19/10/2026 10:00:04 : Mapping table in map window ...
+   19/10/2026 10:00:04 : Process completed!
+
+For SHP problems, also inspect the subset-named ``.fme`` mapping file and
+``<subset>_MUT.log`` in LogFilePath. A translation failure may still be
+followed by the ordinary completion message and removal of the intermediate
+TAB. Check the shapefiles themselves before accepting the result. Use TAB
+output to retain a table for diagnosis or manual translation.
+
+After an error or limit cancellation, a subset table or local temporary
+files can remain. Keep the log and report the output name and time to the
+administrator. Ask them to check ownership and active sessions before
+removing database subsets or map-catalogue entries. Use a new output name
+for a retry when existing results must be preserved.

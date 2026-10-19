@@ -3,340 +3,223 @@ Appendix
 ********
 
 .. index::
-	single: Example XML file; ArcGIS
+   single: Change Log
+   pair: Releases; history
+   single: Version history
 
-Example XML file for ArcGIS
-===========================
+.. _change_log:
 
-Below is an example of XML that might be used to set up the Data Selector tool in ArcGIS. Note, many of the settings have been included for illustration only and it is up to each user or LERC to ensure the system is configured to their requirements.
+Change Log
+==========
 
-::
+This history covers the MapInfo tool through version |release|. Version
+entries and dates follow the comments in ``MapBasic/DataSelector.mb``;
+unversioned entries use local Git commit dates. Early two-part version
+numbers are retained as recorded. Comment dates can differ from the date
+the code and MBX files were committed.
 
-    <?xml version="1.0" encoding="utf-8"?>
+The reviewed checkout is commit ``5d4bf20`` (11 February 2022). Its local
+history contains no tags. This reconstruction uses that checkout's source
+comments and Git history, corresponding to the
+`MapInfo source <https://github.com/LERCAutomation/DataSelector-MapInfo/blob/5d4bf201f57210b4c72636c213203ffd7c396f65/MapBasic/DataSelector.mb>`_
+and `commit history <https://github.com/LERCAutomation/DataSelector-MapInfo/commits/master/>`_.
+It does not imply that each source-comment date was a separately published release.
 
-    <!--
-    WARNING: This file should be changed carefully and a backup should be
-    taken before any changes so that they can be backed out.  Changed lines
-    can also be commented out as below.
-    -->
+**1.0.24 - profile update**
+(11Feb2022; commit date)
 
-    <!--
-    This config file contains all the variables used by the DataSelector
-    ArcObjects add-in.
+    * :guilabel:`Changed` - Remove ToolTitle from DefaultProfile.xml; the main DataSelector.xml supplies the tool caption.
 
-    The 'configuration' node is the 'root' node and signifies the start of the
-    contents of the configuration file.
+**1.0.24**
+(26Mar2021)
 
-    The 'DataSelector' node contains all of the entries relating to the
-    ArcObjects add-in variables.
+Source-comment date; committed with the three MBX builds on 11 February 2022.
 
-    Each entry relates to a file, folder, table name, column name or SQL
-    statement used by the ArcObjects add-in to select and export species data
-    for use in GIS or as a spreadsheet.
-    -->
+    * :guilabel:`Fixed` - Fix bug loading multiple symbology sets.
+    * :guilabel:`Changed` - Remove check for size column before setting symbology.
 
-    <configuration>
-    <DataSelector>
+**1.0.23**
+(01Jul2019)
 
-      <!-- The existing file location where log files will be saved with output
-           messages -->
-      <LogFilePath>
-        <value>H:\DataSelector\LogFiles</value>
-      </LogFilePath>
+    * :guilabel:`Changed` - Enable loading XML profiles when running in 64bit.
+    * :guilabel:`Changed` - Create log file path if missing.
+    * :guilabel:`Changed` - Add details of funding organisations to About box.
 
-	  <!-- The path to the DSN configuration file that contains the connection
-           details for the SQL Server database -->
-      <FileDSN>
-        <value>H:\DataSelector\Config\TVERCConn.sde</value>
-      </FileDSN>
+**1.0.22**
+(05Jun2019)
 
-      <!-- Connection string for ADO connection (to allow stored procedures to
-           be run with parameters) -->
-      <ConnectionString>
-        <value>Server=SONY\SQLEXPRESS; Database=NBNData;
-               Integrated Security=True;</value>
-      </ConnectionString>
+    * :guilabel:`Changed` - Allow user to select XML profile to use.
+    * :guilabel:`Changed` - Add "DefaultClearLogFile" option to XML.
 
-      <!-- The existing file location where extracts will be saved by default -->
-      <DefaultExtractPath>
-        <value>H:\DataSelector\Extracts</value>
-      </DefaultExtractPath>
+**1.0.21**
+(17Dec2018)
 
-      <!-- The existing file location where queries will be saved and loaded
-           by default -->
-      <DefaultQueryPath>
-        <value>H:\DataSelector\Queries</value>
-      </DefaultQueryPath>
+    * :guilabel:`Changed` - Truncate user ID if it means the temporary SQL will be too long for the MapCatalog (> 32 chars).
 
-      <!-- The default format of the output files to be created -->
-      <DefaultFormat>
-        <value>Geodatabase</value>
-      </DefaultFormat>
+**1.0.20**
+(13Dec2018)
 
-      <!-- The schema used in the SQL Server database -->
-      <DatabaseSchema>
-        <value>dbo</value>
-      </DatabaseSchema>
+    * :guilabel:`Changed` - Use schema when calling stored procedures.
 
-      <!-- the Include wildcard for table names to list all the species tables
-           in SQL Server that can be selected by the user to extract from -->
-      <IncludeWildcard>
-        <value>*</value><!--*TVERC_Spp_* -->
-      </IncludeWildcard>
+**1.0.19**
+(22Oct2018)
 
-      <!-- the Exclude wildcard for table names that should NOT be used for
-           species tables in SQL Server that can be selected by the user to
-           extract from -->
-      <ExcludeWildcard>
-        <value>*TVERC_Spp_*_*</value>
-      </ExcludeWildcard>
+    * :guilabel:`Changed` - Include new tool buttons for MI Pro 64bit.
+    * :guilabel:`Changed` - Check output files start with alphabetic characters.
 
-    </DataSelector>
-    </configuration>
+**1.0.18**
+(16Mar2018)
 
+    * :guilabel:`Fixed` - Check top window is map window before trying to add output layer.
 
+**1.0.17**
+(09Nov2017)
 
-.. raw:: latex
+    * :guilabel:`Changed` - Replace single quotes in all SQL clauses.
 
-    \newpage
+**1.0.16**
+(25Jan2017)
+
+    * :guilabel:`Changed` - Enable symbology clauses to be blank.
+
+**1.0.15**
+(26Nov2016)
+
+    * :guilabel:`Changed` - Double-click SQL table to paste list of columns into columns clause.
+
+**1.0.14**
+(01Aug2016)
+
+    * :guilabel:`Fixed` - Fix bug when dropping unnecessary style and primary index columns.
+
+**1.0.13**
+(14Jul2016)
+
+    * :guilabel:`Changed` - Created 'max' size dialog option for users who want to see more SQL text at once.
+
+**1.0.12**
+(14Jul2016)
+
+    * :guilabel:`Changed` - Enable separate instances for tool to run under different names in Tool menu.
+
+**1.0.11**
+(12Jul2016)
+
+    * :guilabel:`Changed` - Autofill file name when saving a previously opened query.
+
+**1.0.10**
+(30May2016)
+
+    * :guilabel:`Changed` - Change version number to 3 parts.
+
+**1.09**
+(05Apr2016)
+
+    * :guilabel:`Fixed` - Fix premature disconnection error when dialog remains open.
+    * :guilabel:`Changed` - Set default value for spatial plotting.
+
+**1.08**
+(09Mar2016)
+
+    * :guilabel:`Changed` - Ask user if they want to keep the dialog open.
+    * :guilabel:`Changed` - Open log file using Notepad.exe.
+
+**1.07**
+(23Feb2016)
+
+    * :guilabel:`Changed` - Enable Tab-separated .txt files to be created.
+
+**1.06**
+(16Feb2016)
+
+    * :guilabel:`Changed` - Don't close dialog until output file has been selected.
+
+**1.05**
+(29Jan2016)
+
+    * :guilabel:`Changed` - Enable plotting columns to be deleted upon completion.
+
+**1.04**
+(17Jan2016)
+
+    * :guilabel:`Changed` - Added option to choose symbology set from drop-down list.
+    * :guilabel:`Changed` - Removed hard-coding of precision colum name.
+    * :guilabel:`Fixed` - Fix bug where plot column name drop-down lists appear when no SQL table selected.
+    * :guilabel:`Fixed` - Fix bug when output table name contains spaces.
+
+**1.03**
+(08Sep2015)
+
+    * :guilabel:`Changed` - Added Group By and Order By fields in dialog.
+    * :guilabel:`Changed` - Include Group By and Order By values in stored procedure.
+    * :guilabel:`Changed` - Include Group By and Order By values when saving and loading to/from .qsf files.
+    * :guilabel:`Changed` - Call new SQL stored procedures to create and clear selected subset tables.
+    * :guilabel:`Changed` - Check if result contains spatial data and open in map or browser as applicable.
+    * :guilabel:`Changed` - Remove default behaviour from 'Ok' button.
+    * :guilabel:`Changed` - Added functionality to spatially plot points and polygons for non-spatial data.
+    * :guilabel:`Changed` - Improved performance for setting symbology.
+    * :guilabel:`Changed` - Display numbers with thousand separators in log.
+
+**1.02**
+(08Jun2015)
+
+    * :guilabel:`Changed` - Added userid to temporary SQL table name to enable concurrent use of tool.
+
+**1.01**
+(03Jun2015)
+
+    * :guilabel:`Changed` - Initial version of tool.
+
+**Additional early commit history**
+
+    * :guilabel:`Changed` - 25Apr2016: change TXT exports to tab-delimited output.
+    * :guilabel:`Changed` - 30Nov2015: move SQL scripts to a separate repository.
+    * :guilabel:`Fixed` - 29-30Nov2015: record-length calculation corrections.
+    * :guilabel:`Fixed` - 17Jun2015: data-size check correction and display the record count before checking the maximum.
+    * :guilabel:`Changed` - 01-03Jun2015: initial repository, selection procedure, row-length/size checks and long TAB filename support.
 
 .. index::
-    single: Example XML file; MapInfo
+   pair: XML; downloadable examples
+   pair: Profiles; example
+   single: DataSelector.xml
+   single: DefaultProfile.xml
 
-Example XML file for MapInfo
-============================
+.. _example_xml:
 
-Below is an example of XML that might be used to set up the Data Selector tool in ArcGIS. Note, many of the settings have been included for illustration only and it is up to each user or LERC to ensure the system is configured to their requirements.
+Example XML files
+=================
 
-::
+These examples match the settings read by version |release|. Download both
+files into the MBX folder and adapt the paths and database names first.
+They are illustrative configuration, not a supplied database or a tested
+deployment for your organisation. See :ref:`configuration` and the
+:ref:`worked_example` for preparation and use.
 
-    <?xml version="1.0" encoding="utf-8"?>
+The example profile uses ``dbo.Example_Spp``, British National Grid
+coordinates, visible plotting options and two simple point/region styles.
+It defaults to preserving the existing log. It deliberately differs from
+the repository's organisation-specific paths, GiGL table filter and hidden
+plotting default.
 
-    <!--
-    WARNING: This file should be changed carefully and a backup should be
-    taken before any changes so that they can be backed out.  Changed lines
-    can also be commented out as below.
-    -->
+DataSelector.xml
+----------------
 
-    <!--
-    This config file contains all the variables used by the DataSelector
-    MapBasic tool.
+:download:`Download DataSelector.xml <examples/DataSelector.xml>`
 
-    The 'configuration' node is the 'root' node and signifies the start of the
-    contents of the configuration file.
+.. literalinclude:: examples/DataSelector.xml
+   :language: xml
 
-    The 'DataSelector' node contains all of the entries relating to the
-    MapBasic tool variables.
+DefaultProfile.xml
+------------------
 
-    Each entry relates to a file, folder, table name, column name or SQL
-    statement used by the MapBasic tool to select and export species data for
-    use in GIS or as a spreadsheet.
-    -->
+:download:`Download DefaultProfile.xml <examples/DefaultProfile.xml>`
 
-    <configuration>
-    <DataSelector>
-
-      <!-- The title to use for the program in the Tool menu -->
-      <ToolTitle>
-        <value>Data Selector</value>
-      </ToolTitle>
-
-      <!-- The existing file location where log files will be saved with output
-           messages -->
-      <LogFilePath>
-        <value>D:\Andy\GiGL\Data Selector\Logs</value>
-      </LogFilePath>
-
-      <!-- The location of the File DSN that specifies which SQL Server database
-           to connect to -->
-      <FileDSN>
-        <value>D:\Andy\GiGL\Data Selector\SQL Server\NBNData.dsn</value>
-      </FileDSN>
-
-      <!-- The existing file location where extracts will be saved by default -->
-      <DefaultExtractPath>
-        <value>D:\Andy\GiGL\Data Selector\Extracts</value>
-      </DefaultExtractPath>
-
-      <!-- The existing file location where queries will be saved and loaded by
-           default -->
-      <DefaultQueryPath>
-        <value>D:\Andy\GiGL\Data Selector\Queries</value>
-      </DefaultQueryPath>
-
-      <!-- The default format of the output files to be created -->
-      <DefaultFormat>
-        <value>tab</value>
-      </DefaultFormat>
-
-      <!-- The schema used in the SQL Server database -->
-      <DatabaseSchema>
-        <value>dbo</value>
-      </DatabaseSchema>
-
-      <!-- The SQL statement used to list all the species tables in SQL Server
-           that can be selected by the user to extract from -->
-      <TableListSQL>
-        <value>Select table_name From information_schema.tables Where table_name
-               Like 'GiGL[_]Spp[_]%' And table_name Not Like 'GiGL[_]Spp[_]%[_]%'
-               Order By table_name</value>
-      </TableListSQL>
-
-      <!-- The maximum number of records what will be extracted in any one
-           extract -->
-      <RecMax>
-        <value>10000000</value>
-      </RecMax>
-
-      <!-- The default for whether the symbology should be set for .tab files
-           or not -->
-      <DefaultSymbologySet>
-        <value>2</value>
-      </DefaultSymbologySet>
-
-      <!-- The default for whether the SQL database tables will be spatially
-           plotted -->
-      <DefaultSpatialPlotting>
-        <value>No</value>
-      </DefaultSpatialPlotting>
-
-      <!-- The spatial coordinate system to use for mapping -->
-      <CoordinateSystem>
-        <value>Earth Projection 8, 79, "m", -2, 49, 0.9996012717, 400000,
-               -100000</value>
-      </CoordinateSystem>
-      
-      <!-- The table columns used for creating spatial data -->
-      <DefaultSpatialColumns>
-        <XColumn>
-            <value>Eastings</value>
-        </XColumn>
-        <YColumn>
-            <value>Northings</value>
-        </YColumn>
-        <SizeColumn>
-            <value>GRPrecision</value>
-        </SizeColumn>
-      </DefaultSpatialColumns>
-
-      <!-- The default maximum precision for plotting polygons as points -->
-      <DefaultPointsPrecision>
-        <value>100</value>
-      </DefaultPointsPrecision>
-      
-      <!-- The User interface dialog size ("Norm" or "Max") -->
-      <DialogSize>
-        <value>Max</value>
-      </DialogSize>
-
-      <!-- The symbology sets available for applying to any MapInfo .tab
-           outputs -->
-      <MapInfoTables>
-        <SymbolSet1 Desc="Standard Points/Polygons">
-            <Symbology>
-                <Symbol>
-                    <Clause>
-                        <Value>GRPRECISION &lt;= 10</Value>
-                    </Clause>
-                    <Object>
-                        <Value>Point</Value>
-                    </Object>
-                    <Symbol>
-                        <Value>2,65,255,12,MapInfo Dispersed Group,0,0</Value>
-                    </Symbol>
-                </Symbol>
-                <Symbol>
-                    <Clause>
-                        <Value>GRPRECISION = 100</Value>
-                    </Clause>
-                    <Object>
-                        <Value>Point</Value>
-                    </Object>
-                    <Symbol>
-                        <Value>2,64,255,14,MapInfo Dispersed Group,0,0</Value>
-                    </Symbol>
-                </Symbol>
-                <Symbol>
-                    <Clause>
-                        <Value>GRPRECISION &lt;= 10</Value>
-                    </Clause>
-                    <Object>
-                        <Value>Region</Value>
-                    </Object>
-                    <Pen>
-                        <Value>2,2,10526880</Value>
-                    </Pen>
-                    <Brush>
-                        <Value>5,10526880</Value>
-                    </Brush>
-                </Symbol>
-                <Symbol>
-                    <Clause>
-                        <Value>GRPRECISION = 100</Value>
-                    </Clause>
-                    <Object>
-                        <Value>Region</Value>
-                    </Object>
-                    <Pen>
-                        <Value>2,2,10526880</Value>
-                    </Pen>
-                    <Brush>
-                        <Value>5,10526880</Value>
-                    </Brush>
-                </Symbol>
-                <Symbol>
-                    <Clause>
-                        <Value>GRPRECISION = 1000</Value>
-                    </Clause>
-                    <Object>
-                        <Value>Region</Value>
-                    </Object>
-                    <Pen>
-                        <Value>2,2,10526880</Value>
-                    </Pen>
-                    <Brush>
-                        <Value>5,10526880</Value>
-                    </Brush>
-                </Symbol>
-                <Symbol>
-                    <Clause>
-                        <Value>GRPRECISION = 2000</Value>
-                    </Clause>
-                    <Object>
-                        <Value>Region</Value>
-                    </Object>
-                    <Pen>
-                        <Value>2,2,10526880</Value>
-                    </Pen>
-                    <Brush>
-                        <Value>6,10526880</Value>
-                    </Brush>
-                </Symbol>
-                <Symbol>
-                    <Clause>
-                        <Value>GRPRECISION = 10000</Value>
-                    </Clause>
-                    <Object>
-                        <Value>Region</Value>
-                    </Object>
-                    <Pen>
-                        <Value>2,2,10526880</Value>
-                    </Pen>
-                    <Brush>
-                        <Value>1,10526880</Value>
-                    </Brush>
-                </Symbol>
-            </Symbology>
-        </SymbolSet1>
-      </MapInfoTables>
-
-    </DataSelector>
-    </configuration>
-
+.. literalinclude:: examples/DefaultProfile.xml
+   :language: xml
 
 .. raw:: latex
 
-	\newpage
+   \newpage
 
 GNU Free Documentation License
 ==============================

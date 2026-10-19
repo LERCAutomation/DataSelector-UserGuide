@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Illustrative profile. Adapt paths, database metadata and source names.
+     Prepare Example_Spp and compatible SQL procedures before running. -->
+<configuration>
+  <DataSelector>
+    <LogFilePath><value>D:\DataSelector\Logs</value></LogFilePath>
+    <FileDSN><value>D:\DataSelector\SQL Server\NBNData.dsn</value></FileDSN>
+    <DefaultExtractPath><value>D:\DataSelector\Extracts</value></DefaultExtractPath>
+    <DefaultQueryPath><value>D:\DataSelector\Queries</value></DefaultQueryPath>
+    <DefaultFormat><value>tab</value></DefaultFormat>
+    <DatabaseSchema><value>dbo</value></DatabaseSchema>
+    <TableListSQL><value>SELECT table_name FROM information_schema.tables WHERE table_schema = 'dbo' AND table_name LIKE 'Example[_]Spp' ORDER BY table_name</value></TableListSQL>
+    <RecMax><value>10000000</value></RecMax>
+    <DefaultSymbologySet><value>1</value></DefaultSymbologySet>
+    <DefaultSpatialPlotting><value>Yes</value></DefaultSpatialPlotting>
+    <CoordinateSystem><value>Earth Projection 8, 79, "m", -2, 49, 0.9996012717, 400000, -100000</value></CoordinateSystem>
+    <DefaultSpatialColumns>
+      <XColumn><value>Easting</value></XColumn>
+      <YColumn><value>Northing</value></YColumn>
+      <SizeColumn><value>GRPrecision</value></SizeColumn>
+    </DefaultSpatialColumns>
+    <DefaultPointsPrecision><value>100</value></DefaultPointsPrecision>
+    <DialogSize><value>Max</value></DialogSize>
+    <DefaultClearLogFile><value>No</value></DefaultClearLogFile>
+    <MapInfoTables>
+      <SymbolSet1 Desc="Standard Points/Polygons">
+        <Symbology>
+          <Symbol>
+            <Clause><value></value></Clause>
+            <Object><value>Point</value></Object>
+            <Symbol><value>35,255,12</value></Symbol>
+          </Symbol>
+          <Symbol>
+            <Clause><value></value></Clause>
+            <Object><value>Region</value></Object>
+            <Pen><value>2,2,10526880</value></Pen>
+            <Brush><value>5,10526880</value></Brush>
+          </Symbol>
+        </Symbology>
+      </SymbolSet1>
+    </MapInfoTables>
+  </DataSelector>
+</configuration>

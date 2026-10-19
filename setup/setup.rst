@@ -2,545 +2,506 @@
 Setting up the tool
 *******************
 
-Before the Data Selector tool will function, it needs to be installed and configured. It is recommended that the configuration is carried out first, although the steps are interchangeable for the ArcGIS implementation. 
+This chapter covers DataSelector for MapInfo version |release|. Prepare the
+application, database connection and profiles before making the tool
+available to routine users.
 
 .. index::
-	single: Configuring the tool
+   pair: Administrators; setup and upgrades
+   pair: Upgrading; profiles
+   single: Installation; validation
 
-Configuring the tool
-====================
+.. _administrator_checklist:
 
-The configuration is stored in an XML file called 'DataSelector.xml', and there are some differences in the contents of this file between the MapInfo and the ArcGIS implementations of the tool. Please ensure that you are using the correct XML file, examples of both of which can be found in the :doc:`Appendix <../appendix/appendix>`. Attributes and settings are presented as nodes (beginning with a start node, e.g. ``<example>``, and finishing with an end note, e.g. ``<\example>``), with the value for the setting held between the ``<value>`` and ``<\value>`` tag. 
+Administrator setup and upgrades
+================================
 
-.. caution:: 
-	The name of the configuration file must be 'DataSelector.xml'. The tool will not load if a different name is used.
+1. **Back up the working installation.** Keep the MBX, icons,
+   ``DataSelector.xml``, profiles, file DSNs and shared QSF queries. Record
+   the MapInfo version and architecture used.
+#. **Deploy matching files.** Use a compiled MBX appropriate to the intended
+   MapInfo installation, together with the XML files and supporting icons.
+   Editing MapBasic source does not update a compiled MBX.
+#. **Check the database.** Test the file DSN with the account that runs
+   MapInfo. Check source tables, the refresh date, schema, stored procedures,
+   permissions and any spatial metadata; see :ref:`sql_database_setup`.
+#. **Validate profiles and folders.** Check XML structure, source and column
+   names, defaults and symbology. Create the extract and query folders and
+   check users can create, replace and remove files. Check log-folder access.
+#. **Run a representative test.** Use a separate output name and check the
+   expected columns, counts and geometry. Test the formats users need,
+   including the Universal Translator when SHP is required. Check complete
+   file sets and the entire log, and test a saved query before sharing it.
 
-The XML file can be edited in a text editor such as Notepad or Wordpad, or using a more feature rich XML editor such as as `Sublime Text <https://www.sublimetext.com/3>`_. The configuration file contains general attributes of the tool. The structure is roughly the same for both implementations of the tool. 
+.. _profile_migration:
 
-.. caution::
-	It is important that the structure of the file is maintained as it is presented in the :doc:`Appendix <../appendix/appendix>`. Any changes to the structure may result in the Data Selector tool not loading, or not working as expected.
+Migrating older configurations
+-------------------------------
 
-Once editing has been completed and the edits have been saved, it is recommended that the configuration file is opened using an internet browser such as Internet Explorer which will help highlight any editing errors – only if the structure of the file is valid will the whole file be displayed in the internet browser.
+Use the :ref:`current examples <example_xml>` as a reference. Preserve local
+database rules and paths rather than replacing a working profile wholesale.
 
-.. note::
-	It is recommended that the configuration file is kept in a central (network) location, so that all users use the same configuration. Additionally, in case of the MapInfo implementation of the tool, it is essential that the configuration file is kept in the same folder as the compiled version of the tool.
+.. list-table::
+   :header-rows: 1
+   :widths: 33 67
 
-
-.. index::
-	single: Special characters in XML
-
-.. raw:: latex
-
-   \newpage
-
-Special characters in XML
--------------------------
-
-The characters ``&``, ``<`` and ``>`` are not valid within values and, so in order to be used, must be **escaped** with XML entities as follows:
-
-<
-	This must be escaped with ``&lt;`` entity, since it is assumed to be the beginning of a tag. For example, ``RecYear &lt; 2010``
-
->
-	This should be escaped with ``&gt;`` entity. It is not mandatory -- it depends on the context -- but it is strongly advised to escape it. For example, ``RecYear &gt; 1980``
-
-&
-	This must be escaped with ``&amp;`` entity, since it is assumed to be the beginning of a entity reference. For example, ``TaxonGroup = 'Invertebrates - Dragonflies &amp; Damselflies'``
-
-
-.. index::
-	single: Setup; ArcGIS
-
-
-Setup for ArcGIS
-----------------
-
-.. index::
-	single: General attributes; ArcGIS
-
-
-General attributes for ArcGIS
-*****************************
-
-The configuration file deals with a series of general attributes for the Data Selector tool. These general nodes specify where files are kept, which SQL Server to connect to, which SQL Server tables to make available and other overall settings. Details on these attributes (and their typical values where known) are given below. The list follows the order within which the attributes are found in the configuration file. This version of the configuration details is valid for the ArcGIS version 1.0.2 of the Data Selector tool.
-
-LogFilePath
-	The folder to be used for storing log files. This folder must already exist.
-
-FileDSN
-	The location of the File DSN that specifies to ArcGIS which SQL Server database to connect to.
-
-ConnectionString
-	The connection string to establish an ADO connection to the source SQL Server database.
-
-DefaultExtractPath
-	The default folder where output files will be stored. This can be overridden by the user when executing the tool.
-
-DefaultQueryPath
-	The default folder where queries will be saved and loaded. This can be overridden by the user when executing the tool.
-
-DefaultFormat
-	The default format of the output files to be created. Options available are 'Geodatabase', 'Shapefile', 'CSV file', 'dBase file' and 'Text file'.
-
-DatabaseSchema
-	The schema in the SQL Server database containing the source SQL tables. This is typically 'dbo'.
-
-IncludeWildcard
-	The **Include** wildcard for table names to list all the tables in SQL Server that can be selected by the user.
-
-ExcludeWildcard
-	The **Exclude** wildcard for table names in SQL Server that should **NOT** be available for selection by the user. This enables temporary and user-specific tables to be hidden in the tool interface.
-
-RecMax
-	Currently not used but must exist in XML.
-
-DefaultSetSymbology
-	Currently not used but must exist in XML.
-
-LayerLocation
-	Currently not used but must exist in XML.
-
-EnableSpatialPlotting
-	Currently not used but must exist in XML.
-
-
-.. caution::
-	All entries in the configuration file are **case sensitive**. Most common errors in the setting up of the tool are caused by using the incorrect case for entries.
-
-
-.. raw:: latex
-
-   \newpage
+   * - Older arrangement
+     - Current arrangement
+   * - One ``DataSelector.xml`` containing all settings
+     - Keep ToolTitle and DefaultProfile in ``DataSelector.xml``. Put
+       connection, output and symbology settings in a separate profile such
+       as ``DefaultProfile.xml`` in the MBX folder.
+   * - Assuming only one configuration is available
+     - One profile is selected automatically. Multiple profiles display a
+       chooser; set DefaultProfile to the preferred filename without ``.xml``.
+   * - No DefaultClearLogFile setting
+     - Set an explicit Yes or No to choose the initial **Clear log file?**
+       state. A blank or missing value leaves it unchecked.
+   * - Treating DefaultSpatialPlotting=No as disabling the option
+     - No shows an unchecked plotting option. Leave the value blank to hide
+       it; Yes shows and checks it.
+   * - Assuming all object types support configured styles
+     - The current style-update code handles Point and Region. Do not rely
+       on a Line rule to apply a line style.
 
 .. index::
-	single: Setup; MapInfo
-
-Setup for MapInfo
------------------
-
-.. index::
-	single: General attributes; MapInfo
-
-General attributes for MapInfo
-******************************
-
-The configuration file deals with a series of general attributes for the Data Selector tool. These general nodes specify where files are kept, which SQL Server to connect to, which SQL Server tables to make available and other overall settings. Details on these attributes (and their typical values where known) are given below. The list follows the order within which the attributes are found in the configuration file. This version of the configuration details is valid for the MapInfo version 1.0.14 of the Data Selector tool.
-
-_`ToolTitle`
-	The title to use for the program in the MapInfo Tools menu.
-
-LogFilePath
-	The folder to be used for storing log files. This folder must already exist.
-
-FileDSN
-	The location of the File DSN that specifies which SQL Server database to connect to.
-
-DefaultExtractPath
-	The default folder where output files will be stored. This can be overridden by the user when executing the tool.
-
-DefaultQueryPath
-	The default folder where queries will be saved and loaded. This can be overridden by the user when executing the tool.
-
-DefaultFormat
-	The default format of the output files to be created. Options available are 'tab', 'shp', 'csv' and 'txt'.
-
-DatabaseSchema
-	The schema in the SQL Server database containing the source SQL tables. This is typically 'dbo'.
-
-TableListSQL
-	The SQL statement used to list all the species tables in SQL Server that can be selected by the user.
-
-RecMax
-	The maximum number of records what will be extracted in any one extract file.
-
-DefaultSymbologySet
-	The default symbology set number that should be used for .tab files. The number corresponds to the order of the symbology sets defined in the `MapInfoTables`_ nodes. A value of '0' (zero) sets the default to '<None>' so that no symbology will be set by default.
-
-DefaultSpatialPlotting
-	The default for whether the SQL database tables can be spatially plotted. If 'Yes' the interface will display options for specifying how the data will plotted. If 'No' the options for specifying how the data will plotted are hidden in the user interface.
-
-	.. note::
-		Even if the selected SQL Server table is spatially enabled it is possible to re-plot the data (for example, using a different grid size or as points instead of polygons, or vice-versa)
-
-CoordinateSystem
-	The spatial coordinate system to use for mapping when plotting data.
-
-DefaultSpatialColumns
-	This section defines the default SQL Server table columns to use for creating spatial data. It has the following entries:
-
-	XColumn
-		The default column containing the X co-ordinates (eastings). This can be overridden by the user when executing the tool.
-
-	YColumn
-		The default olumn containing the Y co-ordinates (northings). This can be overridden by the user when executing the tool.
-
-	SizeColumn
-		The default column containing the grid size (precision) to be plotted. This can be overridden by the user when executing the tool.
-
-DefaultPointsPrecision
-	The default **maximum** precision for plotting polygons as points. Any records where the 'SizeColumn' is less than or equal to this value will be plotted as points. Any records where the 'SizeColumn' is greater than this value will be plotted as polygons. This can be overridden by the user when executing the tool.
-
-DialogSize
-	Indicates the user interface dialog size for the tool. Options are 'Norm' or 'Max'. It is generally recommended that 'Max' is used unless the dialog does not fit in the desktop.
-
-
-.. index::
-	single: Symbology attributes; MapInfo
-
-Symbology attributes for MapInfo
-********************************
-
-_`MapInfoTables`
-	This section defines the symbology sets available for applying to any MapInfo .tab outputs. It has the following entries:
-
-All symbology sets are found within the ``<MapInfoTables>`` node. For each symbology set, which can be selected and applied to an output MapInfo .tab file, a new child node must be created. The node name (e.g. 'SymbologySet1') is not important but must be unique. A simplified example of a symbology set is shown in :numref:`figXMLExampleMapInfo`. 
-
-
-.. _figXMLExampleMapInfo:
-
-.. figure:: figures/DataLayerXMLExampleMapInfo.png
-	:align: center
-
-	Example of symbology set attributes configuration (MapInfo)
-
-Desc
-	An attribute describing the symbology set. This will appear in the interface drop-down list.
-
-Symbology
-	Each set contains only one child node ``<Symbology>>`` under which multiple symbols can be specified. set Each symbol is specified between <Symbol> and </Symbol> tags and is defined by the following child nodes:
-
-Clause
-	The clause that defines the records which will be assigned this symbol. This can be left blank to apply the symbology to all records with the same <Object> type specified below.
-
-Object
-	The object type that is symbolised using this symbol (e.g. ``Region``). Options are 'Point', 'Line' or 'Region'.
-
-Symbol
-	The style to be used for the symbol. This attribute only applies to ``Point`` objects.
-
-Pen
-	The style to be used for the symbol border (outline). This attribute applies to ``Region`` objects.
-
-Brush
-	The style to be used for the symbol infill. This attribute applies to ``Region`` objects.
-
-	.. tip::
-		In order to find the syntax for the Pen and Brush attribute, set the desired symbol for a polygon (region) layer through **Options => Region style**, then write ``Print CurrentBorderPen()`` in the MapBasic window and hit enter. The printed pen definition (e.g. ``2,2,10526880``) can be used in the ``Pen`` attribute.  Repeat with ``Print CurrentBrush()``.
-
-
-.. caution::
-	All entries in the configuration file are **case sensitive**. Most common errors in the setting up of the tool are caused by using the incorrect case for entries.
-
-
-.. raw:: latex
-
-   \newpage
-
-.. index::
-	single: Setting up the SQL database
-
-Setting up the SQL Server database
-==================================
-
-In addition to any SQL tables containing records to be extracted using the Data Selector tool, an auxiliary table must also be present in the SQL Server database in order for the tool to be able to select data from tables held in SQL Server. This table is as follows:
-
-_`Spatial_Tables` table
-	This table contains information about any SQL data tables that may be used by the tool. The table has the following columns:
-
-	.. tabularcolumns:: |L|L|
-
-	.. table:: Valid date and time format specifiers
-
-		+-----------------+-----------------------------------------------------------------------------------------------+
-		|      Column     |                                          Description                                          |
-		+=================+===============================================================================================+
-		| TableName       | The name of the data table                                                                    |
-		+-----------------+-----------------------------------------------------------------------------------------------+
-		| OwnerName       | The database owner, usually ``dbo``                                                           |
-		+-----------------+-----------------------------------------------------------------------------------------------+
-		| XColumn         | The name of the column holding the X coordinates of the record                                |
-		+-----------------+-----------------------------------------------------------------------------------------------+
-		| YColumn         | The name of the column holding the Y coordinates of the record                                |
-		+-----------------+-----------------------------------------------------------------------------------------------+
-		| SizeColumn      | The name of the column holding the grid size of the record (in metres)                        |
-		+-----------------+-----------------------------------------------------------------------------------------------+
-		| IsSpatial       | Bitwise column (1 = Yes, 0 = No) defining whether the table is spatially enabled              |
-		+-----------------+-----------------------------------------------------------------------------------------------+
-		| SpatialColumn   | If the table is spatially enabled, the name of the geometry column (e.g. ``SP_GEOMETRY``)     |
-		+-----------------+-----------------------------------------------------------------------------------------------+
-		| SRID            | The name of the spatial reference system used to plot the records                             |
-		+-----------------+-----------------------------------------------------------------------------------------------+
-		| CoordSystem     | The coordinate system of the spatial data in the table                                        |
-		+-----------------+-----------------------------------------------------------------------------------------------+
-		| SurveyKeyColumn | The column containing the survey key for each record                                          |
-		+-----------------+-----------------------------------------------------------------------------------------------+
-
-	.. note::
-		The British National Grid `SRID` value is
-		``Earth Projection 8, 79, "m", -2, 49, 0.9996012717, 400000, -100000 Bounds
-		(-7845061.1011, -15524202.1641) (8645061.1011, 4470074.53373)``
-
-	.. caution::
-		This table must be filled out correctly for each SQL table that is available to the Data Selector tool.
-
-	.. note::
-		A number of stored procedures that are used by the tool for selecting the required records must also be present in the SQL Server database. To obtain copies of these procedures please contact `Hester <mailto:Hester@HesterLyonsConsulting.co.uk>`_ or `Andy <mailto:Andy@AndyFoyConsulting.co.uk>`_.
-
-
-.. raw:: latex
-
-   \newpage
-
-.. index::
-	single: Installation
-
-Installing the tool
-===================
-
-.. index::
-	single: Installation; ArcGIS
-
-Installing in ArcGIS
---------------------
-
-Installing the tool in ArcGIS is straightforward. There are a few different ways it can be installed:
-
-Installation through Windows Explorer
-*************************************
-
-Open Windows Explorer and double-click on the ESRI Add-in file for the Data Selector tool (:numref:`figInstallTool`).
-
-.. _figInstallTool:
-
-.. figure:: figures/AddInInstall.png
-	:align: center
-
-	Installing the Data Selector tool from Windows Explorer
-
-.. raw:: latex
-
-   \newpage
-
-Installation will begin after confirming you wish to install the tool on the dialog that appears (:numref:`figConfirmInstall`).
-
-.. _figConfirmInstall:
-
-.. figure:: figures/AddInConfirmInstall.png
-	:align: center
-
-	Installation begins after clicking 'Install Add-in'
-
-
-Once it is installed, it will become available to add to the ArcGIS interface as a button (see `CustomisingToolbarsArcGIS`_).
-
-.. note::
-	In order for this process to work all running ArcMap sessions must be closed. The tool will not install or install incorrectly if there are copies of ArcMap running.
-
-.. raw:: latex
-
-   \newpage
-
-Installation from within ArcMap
-*******************************
-
-Firstly, open the Add-In Manager through the Customize menu (:numref:`figOpenAddInManager`).
-
-.. _figOpenAddInManager:
-
-.. figure:: figures/StartAddInManager.png
-	:align: center
-
-	Starting the ArcGIS Add-In Manager
-
-.. raw:: latex
-
-   \newpage
-
-If the Data Selector tool is not shown, use the **Options** tab to add the folder where the tool is kept (:numref:`figAddInOptions`). The security options should be set to the lowest setting as the tool is not digitally signed.
-
-.. _figAddInOptions:
-
-.. figure:: figures/AddInOptions.png
-	:align: center
-
-	The 'Options' tab in the ArcGIS Add-In Manager
-
-Once the tool shows in the Add-In Manager (:numref:`figAddInManager`), it is available to add to the ArcGIS interface as a button (see `CustomisingToolbarsArcGIS`_).
-
-.. _figAddInManager:
-
-.. figure:: figures/AddInManager.png
-	:align: center
-
-	The ArcGIS Add-In Manager showing the Data Selector tool
-
-
-.. raw:: latex
-
-   \newpage
-
-.. _CustomisingToolbarsArcGIS:
-
-Customising toolbars
-********************
-
-In order to add the Data Selector tool to the user interface, it needs to be added to a toolbar. It is recommended that this customisation is done inside a document, but it can be done so that the toolbar always appears in ArcGIS (see `Fundamentals of Saving your Customizations <http://desktop.arcgis.com/en/arcmap/10.3/guide-books/customizing-the-ui/fundamentals-of-saving-your-customizations.htm>`_ for an explanation of how customisations are stored within ArcGIS).
-
-.. _figCustomizeMode:
-
-.. figure:: figures/CustomizeMode.png
-	:align: center
-
-	Starting Customize Mode in ArcGIS
-
-
-Customising toolbars is done through the Customize dialog, which can be started either through the Add-In Manager (by clicking **Customize**, see :numref:`figAddInManager`), or through choosing the 'Customize Mode...' option in the Customize Menu (:numref:`figCustomizeMode`).
-
-.. raw:: latex
-
-   \newpage
-
-Once this dialog is open, select or clear the check box 'Create new toolbars and menus in the document' as required in the **Options** tab (:numref:`figCustomizeOptions`).
-
-.. _figCustomizeOptions:
-
-.. figure:: figures/CustomizeAnnotated.png
-	:align: center
-
-	Customising the document in ArcGIS
-
-
-.. raw:: latex
-
-   \newpage
-
-It is recommended that the button for the Data Selector tool is added to a new toolbar. Toolbars are created through the **Toolbars** tab in the Customize dialog, as shown in figures :numref:`figCustomizeToolbars` and :numref:`figNameToolbar`.
-
-.. _figCustomizeToolbars:
-
-.. figure:: figures/CustomizeToolbarsAnnotated.png
-	:align: center
-
-	Adding a new toolbar in ArcGIS
-
-.. _figNameToolbar:
-
-.. figure:: figures/NameNewToolbar.png
-	:align: center
-
-	Naming the new toolbar in ArcGIS
-
-
-.. raw:: latex
-
-   \newpage
-
-Once a new toolbar is created and named, it is automatically added to the ArcMap interface as well as to the Customize dialog (:numref:`figNewToolbar`. In this case the toolbar was named 'TestToolbar'). 
-
-.. _figNewToolbar:
-
-.. figure:: figures/NewToolbarAddedAnnotated.png
-	:align: center
-
-	New toolbar added to the ArcGIS Interface
-
-
-.. raw:: latex
-
-   \newpage
-
-As a final step the Data Selector tool is added to the toolbar. This is done from the **Command** tab in the Customize dialog (:numref:`figAddInCommands`). Click on **Add-In Controls** and the Data Selector tool will be shown in the right-hand panel.
-
-.. _figAddInCommands:
-
-.. figure:: figures/AddInCommandsAnnotated.png
-	:align: center
-
-	Finding the Data Selector tool in the add-in commands
-
-
-.. raw:: latex
-
-   \newpage
-
-To add the tool to the toolbar, simply drag and drop it onto it (:numref:`figDragDropTool`). Close the Customize dialog and **save the document**. The Data Selector tool is now ready for its final configuration and first use.
-
-.. _figDragDropTool:
-
-.. figure:: figures/DragAndDropTool.png
-	:align: center
-
-	Adding the Data Selector tool to the new toolbar
-
-.. raw:: latex
-
-   \newpage
-
-In order to function, the tool needs to know the location of the XML configuration file. The first time the tool is run, or whenever the configuration file is moved, a dialog will appear asking for the folder containing the XML file (:numref:`figFirstStart`). Navigate to the folder where the XML file is kept and click **OK**. If the XML file is present and its structure is correct, the Data Selector form will be shown. Even if the tool is not run at this time, the location of the configuration file will be stored for future use.
-
-.. _figFirstStart:
-
-.. figure:: figures/FirstStart.png
-	:align: center
-
-	Locating the configuration file folder
-
-
-.. raw:: latex
-
-   \newpage
-
-.. index::
-	single: Installation; MapInfo
-
-Installing in MapInfo
----------------------
-
-To install the tool in MapInfo, make sure that the configuration of the XML file as described above is complete, that the XML file is in the same directory as the tool MapBasic application (.MBX). Then, open `Tool Manager` in MapInfo by selecting :kbd:`Tools --> Tool Manager...` in the menu bar (:numref:`figToolManager`). 
-
-.. _figToolManager:
-
-.. figure:: figures/ToolManager.png
-	:align: center
-
-	The Tool Manager in MapInfo 12 or earlier
-
-
-.. raw:: latex
-
-   \newpage
-
-In the `Tool Manager` dialog, click **Add Tool...**, then locate the tool using the browse button :kbd:`...` on the `Add Tool` dialog (:numref:`figAddTool`). Enter a name in the **Title** box (e.g. 'DataSelector'), and a description if desired. Then click **Ok** to close the `Add Tool` dialog.
-
-.. _figAddTool:
+   pair: MapInfo; installation
+   single: MBX files
+   single: Tool Manager
+   single: AutoLoad
+   single: Installation; architecture
+
+Installing and loading
+======================
+
+The source checkout contains MBX builds named for MapInfo v11, v12 and v16.
+Use the build appropriate to your installed MapInfo version and architecture;
+these filenames are build targets, not a guarantee of compatibility with
+every later version. Test the chosen application in your environment.
+
+1. Place the MBX, ``DataSelector.xml``, profile XML files,
+   ``DataSelector.png`` and ``btnDataSelector.png`` together in the tool folder.
+#. Open MapInfo's tool-management window. In the classic interface use
+   **Tools --> Tool Manager...**; ribbon controls vary by MapInfo version.
+#. Use the add/browse controls to select and load the MBX. Supply a title
+   and description if requested (:numref:`figSelectorLoad`).
+#. Enable loading at startup if required. In the classic Tool Manager the
+   checkboxes are **Loaded** and **AutoLoad**.
+
+.. _figSelectorLoad:
 
 .. figure:: figures/AddToolDialog.png
-	:align: center
+   :align: center
 
-	Adding a tool in Tool Manager
+   Adding and loading the DataSelector application in MapInfo
 
+.. index::
+   single: Ribbon button
+   single: Tools menu
+   pair: MapInfo; launching DataSelector
 
-.. raw:: latex
+Launching the tool
+------------------
 
-   \newpage
+In the 64-bit ribbon build, the tool adds a button to the **Home** tab's
+**Tools** group (:numref:`figSelectorLaunch`). In the classic interface use
+**Tools --> Data Selector --> Run Data Selector**. The caption comes from
+:ref:`setting_ToolTitle` and can differ between installations.
 
-The tool will now show in the `Tool Manager` dialog (:numref:`figToolAdded`) and the **Loaded** box will be checked. To load the tool automatically whenever MapInfo is started check the **AutoLoad** box.  Then click **Ok** to close the `Tool Manager` dialog.
-
-.. _figToolAdded:
-
-.. figure:: figures/DataSelectorLoaded.png
-	:align: center
-
-	The Data Selector tool is loaded
-
-The tool will now appear as a new entry in the `Tools` menu (:numref:`figToolMenu`).
-
-.. _figToolMenu:
+.. _figSelectorLaunch:
 
 .. figure:: figures/DataSelectorToolMenu.png
-	:align: center
+   :align: center
 
-	The Data Selector tool menu
+   Launching DataSelector from the Home tab's Tools group
 
-.. note::
-	The name that will appear in the `Tools` menu is dependent on the `ToolTitle`_ value in the configuration file, **not** the name given when adding the tool using the Tool Manager.
+You do not need to open any MapInfo source layers first. A workspace can
+provide useful background mapping but does not determine which SQL tables
+are listed in the tool.
+
+.. index::
+   single: File DSN
+   single: ODBC
+   pair: SQL Server; connection
+   pair: SQL Server; stored procedures
+   single: AFSelectSppSubset
+   single: AFClearSppSubset
+   single: Spatial_Tables
+   single: MAPINFO_MAPCATALOG
+
+.. _sql_database_setup:
+
+Database connection and requirements
+====================================
+
+Configure an ODBC file DSN for the required SQL Server database using a
+driver compatible with the MapInfo installation. Check access with the
+same Windows or database identity that users will use. The database needs
+prepared reporting tables or views and the following procedures in
+:ref:`setting_DatabaseSchema`:
+
+* ``AFSelectSppSubset`` creates the subset. The tool passes the schema,
+  source table, Columns, Where, Group By, Order By, user suffix and a final
+  numeric argument of ``0``, in that order.
+* ``AFClearSppSubset`` clears it. The tool passes schema, source table and
+  the same user suffix.
+
+The account must be able to list/read the intended sources and execute
+these procedures, with the permissions the procedures need to create and
+remove subset tables and maintain spatial metadata. The exact permissions
+depend on their installed definitions.
+
+SQL scripts were moved out of this repository in November 2015. The current
+checkout does not contain the deployed procedures, so obtain compatible
+scripts from the database administrator. In particular, the historic
+selection procedure is not sufficient evidence for today's parameter list.
+
+For spatial results, verify the installation's ``Spatial_Tables`` metadata
+and ``MAPINFO_MAPCATALOG`` handling. The historic Spatial_Tables definition
+contains the following fields; confirm the current schema before changing it:
+
+.. list-table:: Historic spatial metadata fields
+   :header-rows: 1
+   :widths: 30 70
+
+   * - Field
+     - Meaning
+   * - TableName, OwnerName
+     - Source table and schema/owner.
+   * - XColumn, YColumn, SizeColumn
+     - Coordinate and grid-size attributes used by the database scripts.
+   * - IsSpatial, SpatialColumn
+     - Whether the source has geometry, and its column name.
+   * - SRID
+     - Numeric SQL spatial-reference identifier.
+   * - CoordSystem
+     - MapInfo coordinate-system clause, stored as text.
+
+An SRID number and a MapInfo ``Earth Projection ...`` clause are different
+metadata values. Check each against the source data's coordinate system.
+
+.. index::
+   pair: Profiles; selection
+   pair: XML; configuration files
+   pair: XML; special characters
+   single: DataSelector.xml
+   single: DefaultProfile.xml
+
+.. _configuration:
+
+Configuration files and profile selection
+=========================================
+
+``DataSelector.xml`` is the main configuration file. Other XML files in
+the MBX folder are offered as profiles, excluding that main file. With one
+profile it is selected automatically; with several the user chooses one.
+Keep unrelated XML and backup files with an ``.xml`` extension outside the
+tool folder. Profiles are loaded from the application folder, so put them
+beside the MBX.
+
+Both files use this structure, with settings inside ``DataSelector``:
+
+.. code-block:: xml
+
+   <configuration>
+     <DataSelector>
+       <SettingName><value>Setting value</value></SettingName>
+     </DataSelector>
+   </configuration>
+
+Keep element and attribute names, including ``value`` and ``Desc``, in the
+case shown in the examples. Some option values are compared without regard
+to case, but this does not make XML names interchangeable. Edit a backup in
+a plain-text/XML editor and check that the resulting XML is well formed.
+
+Within values, escape ``&`` as ``&amp;`` and ``<`` as ``&lt;``. Using ``&gt;``
+for ``>`` is also recommended. For example, write
+``RecYear &gt;= 2020 AND TaxonGroup = 'Birds'``. Do not put these XML escapes
+into the SQL fields on the form.
+
+The :ref:`appendix examples <example_xml>` are displayed from the same files
+that users can download. Adapt their paths and data names before use.
+
+.. index::
+   pair: Configuration; main file
+
+Main-file settings
+------------------
+
+.. _setting_ToolTitle:
+
+.. index::
+   single: ToolTitle
+   pair: Tools menu; caption
+
+ToolTitle
+   Caption for the menu/button, for example ``Data Selector``. This is
+   independent of the title entered in Tool Manager. The form itself uses
+   the fixed title Data Selector and the program version.
+
+.. _setting_DefaultProfile:
+
+.. index::
+   single: DefaultProfile
+   pair: Profiles; default
+
+DefaultProfile
+   Preferred profile basename, for example ``DefaultProfile`` without
+   ``.xml``. A blank value defaults to that basename when the main file is
+   read successfully. It selects the initial choice when several profiles
+   are available; it does not prevent the user choosing another profile.
+
+.. index::
+   pair: Configuration; connection and folders
+
+Profile: connection and folders
+-------------------------------
+
+.. _setting_LogFilePath:
+
+.. index::
+   single: LogFilePath
+   pair: Logs; folder
+
+LogFilePath
+   Folder for ``DataSelector_<user>.log`` and SHP translator diagnostics.
+   The tool attempts to create a missing log folder. Check that the user
+   can write to it; see :ref:`run_logs`.
+
+.. _setting_FileDSN:
+
+.. index::
+   single: FileDSN
+   pair: ODBC; file DSN
+
+FileDSN
+   Full path to the ODBC file DSN, such as
+   ``D:\DataSelector\SQL Server\NBNData.dsn``.
+
+.. _setting_DefaultExtractPath:
+
+.. index::
+   single: DefaultExtractPath
+   pair: Outputs; default folder
+
+DefaultExtractPath
+   Initial folder in the output Save dialog. Users can choose another
+   folder. The chosen folder must already exist.
+
+.. _setting_DefaultQueryPath:
+
+.. index::
+   single: DefaultQueryPath
+   pair: QSF files; default folder
+
+DefaultQueryPath
+   Initial folder for saving/loading QSF queries. The chosen folder must
+   already exist.
+
+.. _setting_DatabaseSchema:
+
+.. index::
+   single: DatabaseSchema
+   pair: SQL Server; schema
+
+DatabaseSchema
+   Schema used for source tables, subsets and the two stored procedures,
+   commonly ``dbo``. Use a single, consistent schema for the profile.
+
+.. _setting_TableListSQL:
+
+.. index::
+   single: TableListSQL
+   pair: SQL Tables; available sources
+
+TableListSQL
+   SQL Server query returning source table names in its first column.
+   Return bare names, without a schema prefix. Filter by the configured
+   schema as well as the required table pattern, and exclude subset tables.
+   For example, ``LIKE 'Example[_]Spp'`` matches the exact example table
+   while treating the underscore literally. A broader list must be adapted
+   to the organisation's naming rules.
+
+.. index::
+   pair: Configuration; output defaults
+
+Profile: output and form defaults
+---------------------------------
+
+.. _setting_DefaultFormat:
+
+.. index::
+   single: DefaultFormat
+   pair: Outputs; default format
+
+DefaultFormat
+   ``tab``, ``shp``, ``csv`` or ``txt``. An unrecognised or blank value
+   selects TAB. See :ref:`output_formats`.
+
+.. _setting_RecMax:
+
+.. index::
+   single: RecMax
+   pair: Limits; record count
+
+RecMax
+   Maximum selected row count allowed before downloading. A result greater
+   than this value is cancelled rather than truncated. The subset is
+   created in SQL Server before the count is checked. This does not replace
+   the row-width and size checks described under :ref:`selection_limits`.
+
+.. _setting_DefaultSymbologySet:
+
+.. index::
+   single: DefaultSymbologySet
+   pair: Symbology; default set
+
+DefaultSymbologySet
+   ``0`` selects **<None>**; ``1`` selects the first configured set, ``2``
+   the second, and so on. Sets follow their XML order. Applies to TAB
+   output only.
+
+.. _setting_DialogSize:
+
+.. index::
+   single: DialogSize
+   pair: Form; size
+
+DialogSize
+   ``Max`` enlarges the form and SQL fields. Other values, conventionally
+   ``Norm``, use the normal layout. Choose a size that fits the screen.
+
+.. _setting_DefaultClearLogFile:
+
+.. index::
+   single: DefaultClearLogFile
+   pair: Logs; clear default
+
+DefaultClearLogFile
+   ``Yes`` or ``Y`` checks **Clear log file?** initially. Other values,
+   including blank or missing, leave it unchecked. Users can override the
+   choice on the form. Clearing deletes the previous log before the output
+   destination is requested; see :ref:`run_logs`.
+
+.. index::
+   pair: Configuration; spatial plotting
+
+Profile: coordinate plotting
+----------------------------
+
+.. _setting_DefaultSpatialPlotting:
+
+.. index::
+   single: DefaultSpatialPlotting
+   pair: Plotting; visible controls
+
+DefaultSpatialPlotting
+   ``Yes``/``Y`` shows and checks **Plot data spatially?**.
+   ``No``/``N`` shows it unchecked. A blank or unrecognised value hides
+   plotting controls. CSV/TXT runs do not plot, regardless of this default.
+
+.. _setting_CoordinateSystem:
+
+.. index::
+   single: CoordinateSystem
+   pair: Plotting; coordinate system
+
+CoordinateSystem
+   MapInfo coordinate-system clause used when adding geometry to a
+   non-spatial table. The example uses British National Grid in metres.
+   Re-plotting an already mappable table uses that table's coordinate system;
+   this setting does not reproject its coordinates.
+
+.. _setting_DefaultSpatialColumns:
+
+.. index::
+   single: DefaultSpatialColumns
+
+DefaultSpatialColumns
+   Parent node containing the following three settings. The fields must
+   be present in the selected results if plotting is requested.
+
+.. _setting_XColumn:
+
+.. index::
+   single: XColumn
+   pair: Plotting; eastings
+
+XColumn
+   Default X/easting column, such as ``Easting``. Users can select another.
+
+.. _setting_YColumn:
+
+.. index::
+   single: YColumn
+   pair: Plotting; northings
+
+YColumn
+   Default Y/northing column, such as ``Northing``. Users can select another.
+
+.. _setting_SizeColumn:
+
+.. index::
+   single: SizeColumn
+   pair: Plotting; grid size
+
+SizeColumn
+   Default positive grid-size column, such as ``GRPrecision``. It specifies
+   the grid width in the coordinate system's units. Users can select another.
+
+.. _setting_DefaultPointsPrecision:
+
+.. index::
+   single: DefaultPointsPrecision
+   pair: Plotting; point threshold
+
+DefaultPointsPrecision
+   Default **Max Points Precision**. Records with a grid size less than or
+   equal to this value become points; larger sizes become square regions.
+   See :ref:`plotting` for their placement.
+
+.. _setting_MapInfoTables:
+
+.. index::
+   single: MapInfoTables
+   pair: Symbology; XML rules
+
+Profile: symbology sets
+-----------------------
+
+``MapInfoTables`` contains named set nodes with a ``Desc`` attribute for
+the list caption. Each set contains one ``Symbology`` node and one or more
+``Symbol`` rules. Set node names must be unique; the example uses
+``SymbolSet1``. The fixed arrays leave space for 98 configured sets plus
+**<None>**.
+
+.. list-table:: Rule settings
+   :header-rows: 1
+   :widths: 24 76
+
+   * - Setting
+     - Meaning
+   * - Desc
+     - Attribute on the set node; displayed as its caption.
+   * - Clause
+     - MapInfo expression applied to the downloaded table. Blank matches all
+       records of the selected object type. Any referenced attributes must
+       still exist when styling runs.
+   * - Object
+     - ``Point`` or ``Region``. The current routine does not apply Line styles.
+   * - Symbol
+     - Point style, for example ``35,255,12`` for the three-number form.
+   * - Pen
+     - Region outline, for example ``2,2,10526880``.
+   * - Brush
+     - Region fill, for example ``5,10526880``.
+
+Rules run in order, so a later matching rule can replace an earlier style.
+These clauses use MapInfo syntax, whereas the form's selection expressions
+and TableListSQL use SQL Server syntax. XML entities are still required
+inside XML values. The XML reader uses a 1,024-character buffer for values;
+keep configuration expressions short rather than assuming unlimited length.
+
+To obtain styles, set a suitable current style in MapInfo and inspect
+``CurrentSymbol()``, ``CurrentBorderPen()`` or ``CurrentBrush()`` in the
+MapBasic window. Use values in the format accepted by the example rules.
